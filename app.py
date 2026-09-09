@@ -3,7 +3,11 @@ from datetime import date
 import streamlit as st
 
 from wetter_schwimmfest.calendar_dates import calculate_candidate_dates
-from wetter_schwimmfest.demo import create_demo_chart
+from wetter_schwimmfest.charts import create_candidate_chart
+from wetter_schwimmfest.comparison import (
+    WEATHER_INDICATORS,
+    build_candidate_comparison,
+)
 from wetter_schwimmfest.weather_data import (
     WeatherDataError,
     load_cham_weather_data,
@@ -14,15 +18,47 @@ def main() -> None:
     st.set_page_config(page_title="Wetter Schwimmfest", page_icon="🏊")
 
     st.title("Wettervergleich Schwimmfest")
-    st.caption("Technischer Nachweis mit künstlichen Demodaten")
+    st.caption("Historischer Vergleich amtlicher Tageswerte")
 
     indicator = st.selectbox(
         "Wetterindikator",
-        ("Niederschlagssumme", "Höchsttemperatur"),
+        tuple(WEATHER_INDICATORS),
+    )
+    indicator_details = WEATHER_INDICATORS[indicator]
+
+    st.markdown(
+        "**Quelle:** [MeteoSchweiz Open Data]"
+        "(https://opendatadocs.meteoswiss.ch/de/a-data-groundbased/"
+        "a1-automatic-weather-stations)"
+    )
+    st.write(
+        "**Auswertungsort:** Zug, repräsentiert durch die Station Cham (CHZ), "
+        "443 m ü. M., ca. 5,9 km Luftlinie entfernt"
     )
 
-    chart = create_demo_chart(indicator)
-    st.plotly_chart(chart, width="stretch")
+    weather_data = None
+    try:
+        with st.spinner("Wetterdaten werden geladen …"):
+            weather_data = load_cham_weather_data()
+    except WeatherDataError as error:
+        st.error(str(error))
+    else:
+        comparison = build_candidate_comparison(weather_data)
+        chart = create_candidate_chart(comparison, indicator)
+        st.plotly_chart(chart, width="stretch")
+
+        first_year = comparison["comparison_year"].min()
+        last_year = comparison["comparison_year"].max()
+        st.caption(
+            f"Vergleichsjahre {first_year}–{last_year} · "
+            f"Parameter {indicator_details.source_parameter} · "
+            f"{indicator_details.time_note}"
+        )
+        if "recent" in comparison["data_period"].values:
+            st.caption(
+                "○ Offene Markierungen kennzeichnen Werte des laufenden Jahres; "
+                "diese können noch amtlich korrigiert werden."
+            )
 
     st.subheader("Kalenderregel prüfen")
     comparison_year = st.number_input(
@@ -47,20 +83,8 @@ def main() -> None:
         candidate_dates.later_candidate_day.strftime("%d.%m.%Y"),
     )
 
-    st.subheader("Geladene amtliche Wetterdaten")
-    st.markdown(
-        "**Quelle:** [MeteoSchweiz Open Data]"
-        "(https://opendatadocs.meteoswiss.ch/de/a-data-groundbased/"
-        "a1-automatic-weather-stations)"
-    )
-    st.write("**Station:** Cham (CHZ), 443 m ü. M.")
-
-    try:
-        with st.spinner("Wetterdaten werden geladen …"):
-            weather_data = load_cham_weather_data()
-    except WeatherDataError as error:
-        st.error(str(error))
-    else:
+    if weather_data is not None:
+        st.subheader("Geladene amtliche Wetterdaten")
         first_day = weather_data["reference_timestamp"].min().date()
         last_day = weather_data["reference_timestamp"].max().date()
         st.write(f"**Verfügbarer Zeitraum:** {first_day:%d.%m.%Y}–{last_day:%d.%m.%Y}")

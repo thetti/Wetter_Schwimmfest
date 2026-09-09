@@ -4,10 +4,11 @@ Dieses Projekt macht historische Wetterdaten für frei wählbare Orte und
 Kalenderzeiträume vergleichbar. Der erste Use-Case untersucht, welcher von zwei
 Samstagen im August für das Schwimmfest erfahrungsgemäss günstiger ist.
 
-Der technische Grundaufbau ist vorhanden. Das kleine Dashboard lädt amtliche
-Tageswerte der MeteoSchweiz-Station Cham, zeigt eine Datenvorschau und berechnet
-für ein eingegebenes Vergleichsjahr den Schulstart sowie beide
-Kandidatentage. Das Liniendiagramm verwendet noch künstliche Demodaten.
+Das Dashboard lädt amtliche Tageswerte der MeteoSchweiz-Station Cham und zeigt
+den ersten echten historischen Vergleich: Zwei Linien stellen Niederschlag oder
+Höchsttemperatur des früheren und späteren Kandidatentags über alle vollständig
+verfügbaren Vergleichsjahre dar. Zusätzlich lassen sich die Kalenderregel und
+die zuletzt geladenen Tageswerte prüfen.
 
 ## Einrichten
 

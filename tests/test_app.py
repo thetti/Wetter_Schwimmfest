@@ -13,11 +13,11 @@ def test_dashboard_starts_without_error() -> None:
         {
             "station_code": ("CHZ", "CHZ"),
             "reference_timestamp": pd.to_datetime(
-                ("2025-12-31", "2026-01-01"), utc=True
+                ("2025-08-09", "2025-08-16"), utc=True
             ),
-            "max_temperature_c": (5.0, 6.0),
-            "precipitation_mm": (1.0, 0.0),
-            "data_period": ("historical", "recent"),
+            "max_temperature_c": (32.6, 29.9),
+            "precipitation_mm": (0.0, 0.4),
+            "data_period": ("historical", "historical"),
         }
     )
 
