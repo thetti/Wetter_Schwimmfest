@@ -1,5 +1,8 @@
+from datetime import date
+
 import streamlit as st
 
+from wetter_schwimmfest.calendar_dates import calculate_candidate_dates
 from wetter_schwimmfest.demo import create_demo_chart
 from wetter_schwimmfest.weather_data import (
     WeatherDataError,
@@ -20,6 +23,29 @@ def main() -> None:
 
     chart = create_demo_chart(indicator)
     st.plotly_chart(chart, width="stretch")
+
+    st.subheader("Kalenderregel prüfen")
+    comparison_year = st.number_input(
+        "Vergleichsjahr",
+        min_value=1900,
+        max_value=2100,
+        value=date.today().year,
+        step=1,
+    )
+    candidate_dates = calculate_candidate_dates(comparison_year)
+
+    school_start_column, earlier_day_column, later_day_column = st.columns(3)
+    school_start_column.metric(
+        "Schulstart (Montag)", candidate_dates.school_start.strftime("%d.%m.%Y")
+    )
+    earlier_day_column.metric(
+        "Früher Kandidatentag (Samstag)",
+        candidate_dates.earlier_candidate_day.strftime("%d.%m.%Y"),
+    )
+    later_day_column.metric(
+        "Später Kandidatentag (Samstag)",
+        candidate_dates.later_candidate_day.strftime("%d.%m.%Y"),
+    )
 
     st.subheader("Geladene amtliche Wetterdaten")
     st.markdown(

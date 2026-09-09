@@ -31,7 +31,14 @@ def test_dashboard_starts_without_error() -> None:
     assert app.title[0].value == "Wettervergleich Schwimmfest"
     assert app.selectbox[0].value == "Niederschlagssumme"
     assert len(app.get("plotly_chart")) == 1
-    assert app.subheader[0].value == "Geladene amtliche Wetterdaten"
+    assert app.subheader[0].value == "Kalenderregel prüfen"
+    assert app.number_input[0].label == "Vergleichsjahr"
+    assert [metric.label for metric in app.metric] == [
+        "Schulstart (Montag)",
+        "Früher Kandidatentag (Samstag)",
+        "Später Kandidatentag (Samstag)",
+    ]
+    assert app.subheader[1].value == "Geladene amtliche Wetterdaten"
     assert len(app.dataframe) == 1
 
 

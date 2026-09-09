@@ -4,9 +4,10 @@ Dieses Projekt macht historische Wetterdaten für frei wählbare Orte und
 Kalenderzeiträume vergleichbar. Der erste Use-Case untersucht, welcher von zwei
 Samstagen im August für das Schwimmfest erfahrungsgemäss günstiger ist.
 
-Der technische Grundaufbau ist vorhanden. Das kleine Dashboard verwendet im
-Moment ausschliesslich künstliche Demodaten; der Abruf der amtlichen
-Wetterdaten folgt in einem eigenen Schritt.
+Der technische Grundaufbau ist vorhanden. Das kleine Dashboard lädt amtliche
+Tageswerte der MeteoSchweiz-Station Cham, zeigt eine Datenvorschau und berechnet
+für ein eingegebenes Vergleichsjahr den Schulstart sowie beide
+Kandidatentage. Das Liniendiagramm verwendet noch künstliche Demodaten.
 
 ## Einrichten
 
