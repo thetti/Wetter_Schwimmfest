@@ -61,6 +61,15 @@ Daten des laufenden Jahres dürfen mit erkennbarem vorläufigem Qualitätsstand
 einbezogen werden. Bei einer anderen Station oder Indikatorauswahl passt sich
 der Zeitraum entsprechend an.
 
+### D-009: Lokales Dashboard mit Streamlit und Plotly
+
+Das erste Dashboard wird mit Streamlit erstellt und lokal im Browser
+ausgeführt. Plotly übernimmt die interaktiven Diagramme; pandas wird direkt zum
+Einlesen und Aufbereiten der Wetterdaten verwendet. Tests verwenden pytest und
+Streamlits AppTest. Eine Veröffentlichung wird erst später entschieden.
+
+Grundlage: [Recherche zur Dashboard-Technologie](research/dashboard-technology.md)
+
 ## Offen vor der ersten Implementierung
 
 ### O-004: Definition der Tagesindikatoren
@@ -68,8 +77,3 @@ der Zeitraum entsprechend an.
 Für die Niederschlagssumme sind Parameter, Einheit und Tagesgrenze festgelegt.
 Zu klären bleibt die genaue historische Intervallbeschreibung der
 Höchsttemperatur sowie die Definition späterer Indikatoren.
-
-### O-005: Erste Bedienoberfläche
-
-Zu entscheiden ist, welche einfache Dashboard-Technik wir verwenden und wie
-der Nutzer Ort, Zeitraum und Tagesindikator auswählt.
