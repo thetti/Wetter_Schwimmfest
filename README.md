@@ -28,6 +28,12 @@ poetry run streamlit run app.py
 Streamlit öffnet das Dashboard normalerweise automatisch im Browser. Beenden
 kannst du es im Terminal mit `Ctrl+C`.
 
+Beim ersten Aufruf lädt das Dashboard die historischen Tageswerte und die
+Werte des laufenden Jahres direkt von MeteoSchweiz. Die Dateien werden nicht im
+Repository gespeichert. Solange die App läuft, hält Streamlit die eingelesenen
+Daten zwölf Stunden im Cache. Der erste Aufruf nach einem Neustart benötigt
+daher wieder eine Internetverbindung.
+
 ## Tests ausführen
 
 ```bash
