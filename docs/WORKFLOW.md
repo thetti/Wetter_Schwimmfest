@@ -11,7 +11,9 @@ versteckt bleibt.
 
 Formuliere einen überschaubaren Umsetzungsschritt mit sichtbarem Ergebnis.
 Nenne betroffene Daten, erwartetes Verhalten und notwendige Prüfung. Dieser
-Schritt ist abgeschlossen, wenn dies in einer User-Story festgehalten ist und der Nutzer den Umfang nachvollziehen kann.
+Schritt ist abgeschlossen, wenn dies in einer User-Story festgehalten ist und
+der Nutzer den Umfang nachvollziehen kann. Benenne die User-Story als Handlung
+mit Verb im Infinitiv, zum Beispiel „Historische Wetterdaten untersuchen“.
 
 ## 3. Einfach umsetzen
 
@@ -30,5 +32,7 @@ dokumentiert sind.
 ## 5. Übergeben
 
 Beschreibe Ergebnis, offene Punkte und den einfachsten nächsten Schritt auf
-Deutsch und halte dies fest. Erstelle einen Git-Commit, nach Abschluss. Lass danach den Nutzer den gemeinsamen Stand
-als Ausgangspunkt bestätigen.
+Deutsch und halte dies fest. Erstelle nach Abschluss einen Git-Commit. Die
+Commit-Nachricht beschreibt das abgeschlossene Ergebnis, zum Beispiel
+„Historische Wetterdaten untersucht“. Lass danach den Nutzer den gemeinsamen
+Stand als Ausgangspunkt bestätigen.

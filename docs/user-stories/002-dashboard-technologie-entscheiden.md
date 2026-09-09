@@ -1,4 +1,4 @@
-# User-Story 002: Dashboard-Technologie auswählen
+# User-Story 002: Dashboard-Technologie entscheiden
 
 ## Status
 

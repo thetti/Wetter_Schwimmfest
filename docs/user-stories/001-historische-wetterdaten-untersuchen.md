@@ -1,4 +1,4 @@
-# User-Story 001: Historische Wetterdaten auswählen
+# User-Story 001: Historische Wetterdaten untersuchen
 
 ## Status
 

@@ -238,11 +238,12 @@ Schritte mit sich. Für den bewusst einfachen ersten Meilenstein ist das weniger
 geeignet, sollte aber als spätere Ausbaustufe erhalten bleiben
 ([MeteoSchweiz-Dokumentation: räumliche Klimaanalysen](https://opendatadocs.meteoswiss.ch/de/c-climate-data/c3-ground-based-climate-data)).
 
-## Offene Punkte vor der Implementierung
+## Bestätigter Umgang mit dem Temperaturintervall
 
-1. **Temperaturintervall dokumentieren:** Die abweichenden amtlichen
-   Beschreibungen der Tagesaggregation vor 2018 sollten vor einer exakten
-   Spezifikation geklärt werden.
+Das amtliche Tagesmaximum `tre200dx` wird unverändert übernommen und nicht aus
+feiner aufgelösten Messwerten neu berechnet. Die abweichenden amtlichen
+Beschreibungen der Tagesaggregation vor und ab 2018 bleiben als Einschränkung
+der Datenquelle dokumentiert.
 
 Der Vergleichszeitraum wurde inzwischen fachlich festgelegt: Es werden stets
 so viele Daten wie für die gewählte Station und die ausgewählten Indikatoren
