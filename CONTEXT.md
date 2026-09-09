@@ -23,6 +23,12 @@ _Avoid_: zweiter Samstag, anderer Samstag
 Ein Kalenderjahr, in dem dieselbe Kalenderauswahl mit historischen
 Wetterbeobachtungen verbunden wird.
 
+**Verfügbarer Vergleichszeitraum**:
+Die grösstmögliche zeitliche Abdeckung, für welche die gewählte Station und die
+ausgewählten Wetterindikatoren Daten anbieten. Einzelne Messwertlücken bleiben
+innerhalb dieses Zeitraums als Lücken sichtbar.
+_Avoid_: festes Startjahr
+
 **Kalenderauswahl**:
 Einzelne Kalendertage, mehrere frei gewählte Kalendertage oder ein
 zusammenhängender Zeitraum, die innerhalb eines Vergleichsjahres ausgewertet
@@ -38,6 +44,12 @@ _Avoid_: Wetterstation
 Eine Wetterkennzahl, die sich auf einen ganzen Kalendertag bezieht, etwa die
 Niederschlagssumme oder die Höchsttemperatur.
 _Avoid_: Wetterwert
+
+**Niederschlagssumme**:
+Der amtliche MeteoSchweiz-Tageswert `rka150d0` in Millimetern für das Intervall
+00:00–00:00 UTC; im August entspricht dies ungefähr 02:00 Uhr bis 02:00 Uhr
+lokaler Zeit.
+_Avoid_: Regenmenge ohne Angabe des Zeitfensters
 
 **Historischer Vergleich**:
 Die Auswertung derselben Kalenderauswahl und Wetterindikatoren über mehrere

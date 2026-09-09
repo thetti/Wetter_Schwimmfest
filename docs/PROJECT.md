@@ -49,12 +49,18 @@ Das erste Diagramm zeigt einen auswählbaren Tagesindikator über mehrere Jahre:
 
 Erste Tagesindikatoren sind:
 
-- Niederschlagssumme eines Tages
-- Höchsttemperatur eines Tages
+- Niederschlagssumme `rka150d0` eines Tages in Millimetern
+- Höchsttemperatur `tre200dx` eines Tages in Grad Celsius
 
 Das Diagramm soll Einzelwerte nachvollziehbar anzeigen und fehlende Werte nicht
 unbemerkt überbrücken. Auswertungsort, Datenquelle, Zeitraum und Einheit müssen
 erkennbar sein.
+
+Der dargestellte Vergleichszeitraum nutzt so viele verfügbare Daten wie
+möglich. Er passt sich an die ausgewählte Station und die ausgewählten
+Indikatoren an. Daten des laufenden Jahres können einbezogen werden, sobald die
+betreffenden Kalendertage vorliegen; ihr noch vorläufiger Qualitätsstand muss
+dann erkennbar sein.
 
 ## Weitere Kalenderauswahlen und Darstellungen
 
