@@ -1,0 +1,23 @@
+[project]
+name = "wetter-schwimmfest"
+version = "0.1.0"
+description = "Historische Wetterdaten für die Planung des Schwimmfests vergleichen"
+authors = [
+    {name = "Thomas Hettinger",email = "t.hettinger@gmx.ch"}
+]
+readme = "README.md"
+requires-python = "^3.13"
+dependencies = [
+    "streamlit (>=1.63.0,<2.0.0)",
+    "plotly (>=7.0.0,<8.0.0)",
+    "pandas (>=3.0.5,<4.0.0)"
+]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^9.1.1"
+

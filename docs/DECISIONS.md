@@ -76,3 +76,16 @@ Die Höchsttemperatur wird direkt aus dem amtlichen MeteoSchweiz-Parameter
 `tre200dx` in Grad Celsius übernommen und nicht selbst neu berechnet. Der in der
 Quellendokumentation beschriebene Wechsel des Aggregationsfensters um 2018 wird
 als Einschränkung der Datenquelle dokumentiert.
+
+### D-011: Wetterdaten bei Bedarf laden und lokal zwischenspeichern
+
+Die Anwendung lädt die amtlichen Wetterdaten bei Bedarf direkt von
+MeteoSchweiz. Die Daten werden nicht in Git eingecheckt. Ein lokaler Cache
+vermeidet unnötige wiederholte Downloads und erhält eine begrenzte
+Gültigkeitsdauer, damit neue Daten später automatisch berücksichtigt werden.
+Beim ersten Laden und nach Ablauf des Caches ist eine Internetverbindung nötig.
+Die genaue Umsetzung gehört zur User-Story für den Datenabruf.
+
+Streamlit stellt dafür mit
+[`st.cache_data`](https://docs.streamlit.io/develop/api-reference/caching-and-state/st.cache_data)
+einen eingebauten Datencache mit einstellbarer Gültigkeitsdauer bereit.
