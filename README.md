@@ -4,11 +4,17 @@ Dieses Projekt macht historische Wetterdaten für frei wählbare Orte und
 Kalenderzeiträume vergleichbar. Der erste Use-Case untersucht, welcher von zwei
 Samstagen im August für das Schwimmfest erfahrungsgemäss günstiger ist.
 
-Das Dashboard lädt amtliche Tageswerte der MeteoSchweiz-Station Cham und zeigt
-den ersten echten historischen Vergleich: Zwei Linien stellen Niederschlag oder
-Höchsttemperatur des früheren und späteren Kandidatentags über alle vollständig
-verfügbaren Vergleichsjahre dar. Zusätzlich lassen sich die Kalenderregel und
-die zuletzt geladenen Tageswerte prüfen.
+In der ersten implementierten Konfiguration lädt das Dashboard amtliche
+Tageswerte der MeteoSchweiz-Station Cham als Repräsentation für Zug. Zwei Linien
+stellen Niederschlag oder Höchsttemperatur des früheren und späteren
+Kandidatentags über alle vollständig verfügbaren Vergleichsjahre dar. Zusätzlich
+lassen sich die Kalenderregel und die zuletzt geladenen Tageswerte prüfen.
+
+Das Produktziel ist nicht auf Zug, Cham, diese beiden Indikatoren oder
+Tageswerte beschränkt. Später sollen Auswertungsort, Wetterstation,
+Kalenderauswahl und Zeitauflösung variabel sein. Die jeweils verfügbare
+Zeitreihe richtet sich nach der gewählten Kombination aus Station, Indikator
+und Zeitauflösung.
 
 ## Einrichten
 
@@ -48,3 +54,5 @@ poetry run pytest
 - [Ziel und erster Use-Case](docs/PROJECT.md)
 - [Entwicklungsablauf](docs/WORKFLOW.md)
 - [Entscheidungen und offene Fragen](docs/DECISIONS.md)
+- [Allgemeiner Wetterindikatorenkatalog](docs/research/weather-indicator-catalog.md)
+- [Zug/Cham-Fallstudie zur Wetterdatenquelle](docs/research/weather-data-source.md)

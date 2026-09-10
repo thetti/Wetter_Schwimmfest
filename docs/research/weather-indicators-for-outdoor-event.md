@@ -2,6 +2,14 @@
 
 Stand: 10. September 2026
 
+## Geltungsbereich
+
+Dieses Dokument bewertet Indikatoren aus Sicht eines Schwimmfests und prüft
+ihre konkrete Verfügbarkeit an der zuerst verwendeten Station Cham (CHZ). Die
+CHZ-Angaben sind eine **Fallstudie**, keine Grenze für andere Orte oder
+Stationen. Der stationsunabhängige Katalog mit Tages- und Stundenindikatoren
+steht im [allgemeinen Wetterindikatorenkatalog](weather-indicator-catalog.md).
+
 ## Kurzempfehlung
 
 Für die Frage, ob ein Tag aus Sicht eines Schwimmfests „gutes Wetter“ hatte,
@@ -9,8 +17,8 @@ sollten mehrere **amtliche Messwerte getrennt sichtbar** bleiben. MeteoSchweiz
 liefert die Beobachtungen; die Beurteilung „gut“ oder „schlecht“ ist dagegen
 eine Produktbewertung und kein amtlicher Messwert.
 
-Zusätzlich zu den bereits verwendeten Grössen Niederschlag (`rka150d0`) und
-Höchsttemperatur (`tre200dx`) sind für Cham vor allem sinnvoll:
+Zusätzlich zu Niederschlag und Höchsttemperatur sind für die allgemeine
+Beurteilung vor allem sinnvoll:
 
 1. **Tagesmitteltemperatur `tre200d0`**: ergänzt die kurze Temperaturspitze um
    das Temperaturniveau des ganzen Tages;
@@ -21,11 +29,12 @@ Höchsttemperatur (`tre200dx`) sind für Cham vor allem sinnvoll:
 4. **mittlere relative Luftfeuchtigkeit `ure200d0`**: ergänzt die Temperatur
    um einen groben Hinweis auf Schwüle beziehungsweise feucht-kühles Empfinden.
 
-Alle vier reichen an der Station Cham ungefähr gleich weit zurück wie die
-bisherigen Indikatoren. Sonnenscheindauer wäre für Menschen besonders
-verständlich, ist in Cham aber erst ab Oktober 2022 vorhanden und deshalb für
-den historischen Vergleich 1993–2026 vorerst ungeeignet. Globalstrahlung ist
-ab Juli 2014 verfügbar und kann als ergänzender Helligkeits-/Strahlungshinweis
+In der CHZ-Fallstudie reichen diese vier Grössen ungefähr gleich weit zurück wie
+die bisher verwendeten Indikatoren. Sonnenscheindauer wäre für Menschen
+besonders verständlich, ist dort aber erst ab Oktober 2022 vorhanden und
+deshalb für einen langen CHZ-Vergleich vorerst ungeeignet. Sie bleibt dennoch
+ein fachlich wertvoller allgemeiner Indikator. Globalstrahlung ist in CHZ ab
+Juli 2014 verfügbar und kann als ergänzender Helligkeits-/Strahlungshinweis
 dienen, ist aber weniger anschaulich als Sonnenminuten.
 
 Die tatsächlichen CHZ-Dateien enthalten für alle 68 frühen und späten
@@ -55,7 +64,7 @@ geprüft. Leere Einzelwerte bleiben mögliche Messlücken. Der allgemeine
 Stationsbeginn ist deshalb nicht mit der Verfügbarkeit eines bestimmten
 Parameters gleichzusetzen.
 
-## Besonders hilfreiche Indikatoren
+## Besonders hilfreiche Indikatoren in der CHZ-Fallstudie
 
 | Kennung | Amtliche Bedeutung | Einheit | CHZ seit | Nutzen und Grenze für das Fest |
 | --- | --- | --- | --- | --- |
@@ -71,7 +80,7 @@ verkürzen die historische Zeitreihe nicht. Für eine leicht verständliche
 Oberfläche könnte eine Umrechnung von m/s in km/h angezeigt werden; diese wäre
 dann klar als von der Anwendung umgerechneter Wert zu kennzeichnen.
 
-## Hilfreiche Ergänzungen mit Einschränkungen
+## Hilfreiche Ergänzungen in der CHZ-Fallstudie
 
 | Kennung | Amtliche Bedeutung | Einheit | CHZ seit | Einordnung |
 | --- | --- | --- | --- | --- |
@@ -86,7 +95,7 @@ Sonnenscheindauer ist fachlich attraktiv, sollte im Dashboard aber erst als
 zusätzliche Kurzzeitansicht angeboten werden. Eine Linie ab 2022 neben Reihen
 ab 1993 könnte sonst fälschlich gleich belastbar wirken.
 
-## Eher wenig hilfreiche Tagesindikatoren
+## Eher wenig hilfreiche Tagesindikatoren für die Festwetterfrage
 
 Diese Parameter sind in den CHZ-Tagesdateien tatsächlich befüllt, beantworten
 die Festwetterfrage aber nur indirekt oder redundant:
@@ -134,7 +143,7 @@ auf rund 22 Jahre verkürzen. Sowohl Stunden- als auch 10-Minuten-Werte erhöhen
 Datenmenge und Komplexität. Ausserdem müsste ein lokales Festzeitfenster wegen
 der amtlichen UTC-Zeitstempel korrekt in UTC übersetzt werden.
 
-## Wichtige Aspekte ausserhalb der CHZ-Tagesdatei
+## Wichtige Aspekte ausserhalb einer einzelnen Stationsdatei
 
 Einige für ein Schwimmfest wichtige Fragen sind keine weiteren einfachen
 Tagesindikatoren dieser Station:
@@ -174,15 +183,20 @@ amtlicher MeteoSchweiz-Messwert erscheinen.
 
 ## Fazit für die Weiterentwicklung
 
-Die robuste Reihenfolge für das Dashboard ist:
+Eine robuste Reihenfolge für die erste Konfiguration ist:
 
 1. bestehende Niederschlagssumme und Höchsttemperatur beibehalten;
 2. Tagesmitteltemperatur, maximale Sekundenböe und mittleren Wind ergänzen;
 3. relative Luftfeuchtigkeit als Kontext anbieten;
-4. Sonnenschein/Globalstrahlung nur mit klar sichtbarer kürzerer Abdeckung
-   ergänzen;
+4. Sonnenschein/Globalstrahlung auch bei kürzerer Abdeckung mit klar sichtbarem
+   Zeitraum als ergänzende Ansicht ermöglichen;
 5. später eine Auswertung der eigentlichen Feststunden mit den seit 1993
    verfügbaren Stundenwerten prüfen; 10-Minuten-Werte nur bei echtem Bedarf an
    höherer zeitlicher Genauigkeit ergänzen;
 6. einen kombinierten „Festwetter-Score“ erst nach Festlegung verständlicher
    Nutzerregeln entwickeln.
+
+Für andere Orte wird diese Reihenfolge anhand der dort tatsächlich verfügbaren
+Messreihen neu bewertet. Dabei bleiben alle fachlich sinnvollen Indikatoren aus
+dem allgemeinen Katalog auswählbar beziehungsweise als derzeit nicht verfügbar
+erkennbar.

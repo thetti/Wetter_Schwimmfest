@@ -37,18 +37,22 @@ Modell soll diese Erweiterung offenhalten.
 
 Der erste Meilenstein verwendet Messwerte einer repräsentativen offiziellen
 Wetterstation für den Auswertungsort. Für Zug ist dies die MeteoSchweiz-Station
-Cham (CHZ). Stationsname und Entfernung zum Auswertungsort bleiben in der
-Darstellung sichtbar. Exakte Koordinatenwerte oder räumlich interpolierte
-Rasterdaten können später ergänzt werden.
+Cham (CHZ). Diese Zuordnung gilt nur für die erste Konfiguration und begrenzt
+das Produkt nicht auf Zug oder Cham. Bei jedem anderen Auswertungsort wird die
+Stationszuordnung neu bestimmt. Stationsname, Höhe und räumlicher Bezug zum
+Auswertungsort bleiben in der Darstellung sichtbar. Exakte Koordinatenwerte
+oder räumlich interpolierte Rasterdaten können später ergänzt werden.
 
 Grundlage: [Recherche zur historischen Wetterdatenquelle](research/weather-data-source.md)
 
 ### D-007: Niederschlagssumme mit UTC-Tagesgrenze
 
-Als täglicher Niederschlagsindikator wird der amtliche MeteoSchweiz-Parameter
-`rka150d0` in Millimetern verwendet. Sein Intervall reicht von 00:00 UTC bis
-00:00 UTC des Folgetags und entspricht im August ungefähr 02:00 Uhr bis 02:00
-Uhr lokaler Zeit. Diese Verschiebung bleibt in der Darstellung nachvollziehbar.
+Als erster täglicher Niederschlagsindikator wird der amtliche
+MeteoSchweiz-Parameter `rka150d0` in Millimetern verwendet. Sein Intervall
+reicht von 00:00 UTC bis 00:00 UTC des Folgetags und entspricht im August
+ungefähr 02:00 Uhr bis 02:00 Uhr lokaler Zeit. Diese Verschiebung bleibt in der
+Darstellung nachvollziehbar. Für andere Zeitauflösungen wird der jeweils
+passende amtliche Parameter verwendet.
 
 ### D-008: Maximal verfügbarer Vergleichszeitraum
 
@@ -59,7 +63,9 @@ Cham (CHZ) und die ersten beiden Indikatoren beginnt er 1993. Einzelne fehlende
 Werte werden als Lücken dargestellt, statt den gesamten Zeitraum zu verkürzen.
 Daten des laufenden Jahres dürfen mit erkennbarem vorläufigem Qualitätsstand
 einbezogen werden. Bei einer anderen Station oder Indikatorauswahl passt sich
-der Zeitraum entsprechend an.
+der Zeitraum entsprechend an. Eine kurze oder fehlende Reihe an einer Station
+entfernt einen fachlich sinnvollen Indikator nicht aus dem allgemeinen Katalog;
+sie begrenzt nur die dort mögliche Darstellung.
 
 ### D-009: Lokales Dashboard mit Streamlit und Plotly
 
@@ -72,10 +78,11 @@ Grundlage: [Recherche zur Dashboard-Technologie](research/dashboard-technology.m
 
 ### D-010: Amtliches Tagesmaximum unverändert übernehmen
 
-Die Höchsttemperatur wird direkt aus dem amtlichen MeteoSchweiz-Parameter
-`tre200dx` in Grad Celsius übernommen und nicht selbst neu berechnet. Der in der
-Quellendokumentation beschriebene Wechsel des Aggregationsfensters um 2018 wird
-als Einschränkung der Datenquelle dokumentiert.
+Die Höchsttemperatur der ersten Tagesansicht wird direkt aus dem amtlichen
+MeteoSchweiz-Parameter `tre200dx` in Grad Celsius übernommen und nicht selbst
+neu berechnet. Der in der Quellendokumentation beschriebene Wechsel des
+Aggregationsfensters um 2018 wird als Einschränkung der Datenquelle
+dokumentiert.
 
 ### D-011: Wetterdaten bei Bedarf laden und lokal zwischenspeichern
 
@@ -89,3 +96,21 @@ Die genaue Umsetzung gehört zur User-Story für den Datenabruf.
 Streamlit stellt dafür mit
 [`st.cache_data`](https://docs.streamlit.io/develop/api-reference/caching-and-state/st.cache_data)
 einen eingebauten Datencache mit einstellbarer Gültigkeitsdauer bereit.
+
+### D-012: Fachlichen Indikatorenkatalog von Stationsverfügbarkeit trennen
+
+Wetterindikatoren werden zuerst nach ihrem Nutzen für die Fragestellung
+beurteilt. Erst danach wird anhand des amtlichen Dateninventars geprüft, an
+welchen Stationen, in welcher Zeitauflösung und für welchen Zeitraum sie
+verfügbar sind. Die erste Station Cham definiert deshalb weder den allgemeinen
+Indikatorenkatalog noch dessen zeitliche Abdeckung.
+
+Grundlage: [Allgemeiner Wetterindikatorenkatalog](research/weather-indicator-catalog.md)
+
+### D-013: Tages- und Stundenperspektive getrennt anbieten
+
+Tageswerte bleiben für lange Vergleiche ganzer Kalendertage vorgesehen.
+Stundenwerte sollen später den Verlauf und das Wetter innerhalb eines örtlichen
+Festzeitfensters zeigen. Beide Perspektiven verwenden die amtlichen Werte ihrer
+jeweiligen Zeitauflösung. UTC-Zeitstempel werden für die Stundenansicht korrekt
+in lokale Zeit einschliesslich Sommerzeit umgerechnet.

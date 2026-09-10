@@ -1,8 +1,10 @@
 # Wettervergleich Schwimmfest
 
 Dieses Fachgebiet beschreibt historische Wettervergleiche für frei wählbare
-Kalendertage und Zeiträume. Der erste Use-Case vergleicht zwei mögliche Samstage
-für ein Schwimmfest in Bezug auf den Schulstart der Stadt Zug.
+Orte, Kalendertage und Zeiträume. Der erste Use-Case vergleicht zwei mögliche
+Samstage für ein Schwimmfest in Bezug auf den Schulstart der Stadt Zug. Zug und
+die zunächst zugeordnete Wetterstation Cham sind eine erste Konfiguration und
+keine fachliche Begrenzung des Dashboards.
 
 ## Language
 
@@ -36,9 +38,37 @@ werden.
 _Avoid_: Kandidatentage, wenn die Tage keine möglichen Veranstaltungstermine sind
 
 **Auswertungsort**:
-Der geografische Ort, auf den sich der Wettervergleich bezieht; anfänglich ist
-dies Zug, später kann ein anderer Ort gewählt werden.
+Der geografische Ort, auf den sich der Wettervergleich bezieht. Er ist nicht
+zwingend identisch mit dem Standort einer Wetterstation.
 _Avoid_: Wetterstation
+
+**Wetterstation**:
+Ein konkreter Messstandort, dessen Beobachtungen einem Auswertungsort zugeordnet
+werden können. Stationsname, Höhe und räumlicher Bezug zum Auswertungsort
+bleiben nachvollziehbar.
+_Avoid_: Auswertungsort
+
+**Stationszuordnung**:
+Die transparente Verbindung zwischen einem Auswertungsort und der für ihn
+verwendeten Wetterstation. Eine nahe Station ist nicht automatisch für jedes
+Gelände gleich repräsentativ.
+
+**Indikatorverfügbarkeit**:
+Der Zeitraum, in dem ein bestimmter Wetterindikator an einer bestimmten Station
+und in einer bestimmten Zeitauflösung tatsächlich verfügbar ist.
+_Avoid_: allgemeiner Stationsbeginn
+
+**Zeitauflösung**:
+Die Länge der Zeitabschnitte, auf die sich Wetterwerte beziehen, beispielsweise
+ein Tag oder eine Stunde.
+
+**Festzeitfenster**:
+Der örtliche Zeitraum innerhalb eines Veranstaltungstags, der für eine
+stundenbasierte Auswertung betrachtet wird, beispielsweise 10:00–18:00 Uhr.
+
+**Stundenindikator**:
+Eine Wetterkennzahl, die sich auf eine einzelne Stunde bezieht. Mehrere
+Stundenwerte können den Verlauf innerhalb eines Festzeitfensters zeigen.
 
 **Tagesindikator**:
 Eine Wetterkennzahl, die sich auf einen ganzen Kalendertag bezieht, etwa die
@@ -46,9 +76,10 @@ Niederschlagssumme oder die Höchsttemperatur.
 _Avoid_: Wetterwert
 
 **Niederschlagssumme**:
-Der amtliche MeteoSchweiz-Tageswert `rka150d0` in Millimetern für das Intervall
-00:00–00:00 UTC; im August entspricht dies ungefähr 02:00 Uhr bis 02:00 Uhr
-lokaler Zeit.
+Die während eines ausdrücklich genannten Zeitintervalls aufsummierte
+Niederschlagsmenge in Millimetern. Tages- und Stundensummen beantworten
+unterschiedliche Fragen und dürfen nicht ohne Angabe des Intervalls vermischt
+werden.
 _Avoid_: Regenmenge ohne Angabe des Zeitfensters
 
 **Historischer Vergleich**:

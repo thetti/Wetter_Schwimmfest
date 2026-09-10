@@ -2,7 +2,15 @@
 
 Stand: 8. September 2026
 
-## Kurzempfehlung
+## Geltungsbereich
+
+Dieses Dokument hält die Datenquellenentscheidung für die **erste
+Konfiguration Zug/Cham** fest. Stationswahl, konkrete Parameter und Startjahr
+sind eine nachvollziehbare Fallstudie, aber keine allgemeine Einschränkung des
+Dashboards. Für andere Auswertungsorte müssen Stationszuordnung,
+Parameterverfügbarkeit und Zeitraum neu geprüft werden.
+
+## Kurzempfehlung für die erste Konfiguration
 
 Für den ersten Meilenstein sollten die **amtlichen Tageswerte der automatischen
 MeteoSchweiz-Station Cham (CHZ)** verwendet werden. Sie sind als einfache
@@ -47,7 +55,7 @@ OGC-STAC-API-Standard. MeteoSchweiz beschreibt zudem ETag/`If-None-Match` als
 vorgesehenes Verfahren, um eine Datei nur bei Änderungen erneut zu laden
 ([MeteoSchweiz-Dokumentation: Daten herunterladen](https://opendatadocs.meteoswiss.ch/de/general/download)).
 
-## Ortsbezug und Stationsauswahl
+## Ortsbezug und Stationsauswahl im Beispiel Zug/Cham
 
 ### Amtliche Koordinaten
 
@@ -251,3 +259,21 @@ verfügbar verwendet. Für CHZ und die ersten beiden Indikatoren ist 1993 der
 früheste gemeinsame Beginn. Neuere Werte aus `recent` können einbezogen werden,
 sobald die ausgewählten Kalendertage vorliegen; ihr Qualitätsstand bleibt
 sichtbar.
+
+## Übertragung auf weitere Orte und Stationen
+
+Für einen neuen Auswertungsort wird die Zug/Cham-Zuordnung nicht kopiert,
+sondern derselbe transparente Prüfprozess wiederholt:
+
+1. mögliche amtliche Stationen mit Koordinaten, Höhe und Exposition ermitteln;
+2. die gewählte Stationszuordnung und ihren räumlichen Bezug offenlegen;
+3. das amtliche Dateninventar je Indikator und Zeitauflösung prüfen;
+4. den maximal nutzbaren Zeitraum für die konkrete Auswahl bestimmen;
+5. fehlende Werte und kurze Reihen sichtbar machen.
+
+Die blosse Nähe einer Station garantiert keine Repräsentativität für das lokale
+Gelände. Ebenso darf der allgemeine Stationsbeginn nicht als Datenbeginn jedes
+Parameters verstanden werden. Ein fachlich sinnvoller Indikator bleibt Teil
+des allgemeinen Katalogs, wenn er an einer konkreten Station fehlt; dort wird
+er als nicht verfügbar ausgewiesen oder durch eine andere geeignete amtliche
+Datenquelle ergänzt.
