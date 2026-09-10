@@ -60,10 +60,16 @@ Das erste Diagramm zeigt einen auswählbaren Tagesindikator über mehrere Jahre:
 - Linie 1: später Kandidatentag
 - Linie 2: früher Kandidatentag
 
-Die ersten implementierten Tagesindikatoren sind:
+Das Tagesdiagramm bietet an:
 
 - Niederschlagssumme `rka150d0` eines Tages in Millimetern
 - Höchsttemperatur `tre200dx` eines Tages in Grad Celsius
+- Tagesmittel- und Tagestiefsttemperatur
+- mittlere Windgeschwindigkeit und maximale Böe
+- relative Luftfeuchtigkeit
+- Sonnenscheindauer und relative Sonnenscheindauer
+- Globalstrahlung
+- den aus sechs Kernmessungen berechneten Fest-Indikator von 0 bis 100
 
 Das Diagramm soll Einzelwerte nachvollziehbar anzeigen und fehlende Werte nicht
 unbemerkt überbrücken. Auswertungsort, Datenquelle, Zeitraum und Einheit müssen
@@ -75,18 +81,7 @@ Indikatoren an. Daten des laufenden Jahres können einbezogen werden, sobald die
 betreffenden Kalendertage vorliegen; ihr noch vorläufiger Qualitätsstand muss
 dann erkennbar sein.
 
-## Weitere Tagesindikatoren
-
-Für die Beurteilung eines Veranstaltungstags kommen neben Niederschlagssumme
-und Höchsttemperatur insbesondere folgende Messgrössen infrage:
-
-- Tagesmittel- und Tagestiefsttemperatur
-- mittlere Windgeschwindigkeit und maximale Böe
-- relative Luftfeuchtigkeit
-- Sonnenscheindauer und relative Sonnenscheindauer
-- Globalstrahlung
-- je nach amtlichem Angebot weitere verständliche Grössen wie Bewölkung oder
-  Sichtweite
+## Tagesindikatoren und Fest-Indikator
 
 Die fachliche Eignung eines Indikators wird unabhängig davon beschrieben, ob
 er an der zuerst verwendeten Station bereits lange verfügbar ist. In der
@@ -95,12 +90,30 @@ Datenende und Lücken für die gewählte Station nachvollziehbar sein. Eine kurz
 Reihe kann für eine ergänzende Ansicht sinnvoll sein, auch wenn sie keinen
 langen historischen Vergleich erlaubt.
 
+Der Fest-Indikator fasst sechs besonders relevante, lang verfügbare Messgrössen
+mit festen Gewichten zusammen:
+
+| Teilwert | Gewicht |
+| --- | ---: |
+| Niederschlag | 30 % |
+| Tagesmitteltemperatur | 25 % |
+| stärkste Böe | 15 % |
+| Höchsttemperatur | 10 % |
+| mittlerer Wind | 10 % |
+| relative Luftfeuchtigkeit | 10 % |
+
+Jeder Teilwert wird über sichtbare Stützpunkte auf 0 bis 100 Punkte abgebildet;
+dazwischen wird linear gerechnet. Die Anwendung zeigt die vollständigen
+Stützpunkte direkt beim Diagramm. Fehlt eine Kernmessung, bleibt der
+Fest-Indikator für diesen Tag leer. Sonnenschein und Globalstrahlung bleiben
+separate Messgrössen, damit kurze Reihen die Zusammensetzung des Scores nicht
+zwischen Jahren verändern.
+
 ## Stundenbasierte Indikatoren
 
 Tageswerte beschreiben einen ganzen Tag, beantworten aber nicht zuverlässig,
-wie das Wetter während der Veranstaltung war. Für ein frei wählbares örtliches
-Festzeitfenster sollen deshalb später insbesondere folgende Stundenwerte
-ausgewertet werden können:
+wie das Wetter während der Veranstaltung war. Das separate Stundendiagramm
+bietet deshalb folgende Messgrössen an:
 
 - Niederschlagssumme je Stunde
 - mittlere, minimale und maximale Temperatur je Stunde
@@ -108,11 +121,12 @@ ausgewertet werden können:
 - mittlere relative Luftfeuchtigkeit je Stunde
 - Sonnenscheindauer oder Strahlung je Stunde, sofern an der Station verfügbar
 
-Eine Stundenansicht kann Einzelstunden zeigen oder Werte innerhalb des
-Festzeitfensters verständlich zusammenfassen. Amtliche UTC-Zeitstempel müssen
-dabei korrekt in die lokale Zeit am Auswertungsort umgerechnet werden,
-einschliesslich Sommerzeit. Tages- und Stundenwerte bleiben getrennte
-Perspektiven, weil sie unterschiedliche Fragen beantworten.
+Für jede lokale Stunde von 1 bis 24 zeigt es je Kandidatentag den Mittelwert
+über alle verfügbaren Jahre. Ein Schatten vom 25. bis zum 75. Perzentil zeigt
+die typische Bandbreite. Amtliche UTC-Zeitstempel werden korrekt in lokale Zeit
+am Auswertungsort umgerechnet, einschliesslich Sommerzeit. Tages- und
+Stundenwerte bleiben getrennte Perspektiven, weil sie unterschiedliche Fragen
+beantworten.
 
 Grundlage: [Allgemeiner Wetterindikatorenkatalog](research/weather-indicator-catalog.md)
 
@@ -128,7 +142,6 @@ sein. Vorgesehen sind insbesondere:
 - durchschnittlicher Tagesverlauf der Temperatur
 - zeitlicher Verlauf des Niederschlags
 - Windstärke und Windverlauf
-- Auswertung eines örtlichen Festzeitfensters mit Stundenwerten
 - weitere Wetterindikatoren und Vergleichsperspektiven
 
 Diese Erweiterungen gehören noch nicht zum ersten Umsetzungsschritt. Fachliche

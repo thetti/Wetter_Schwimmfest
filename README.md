@@ -4,11 +4,15 @@ Dieses Projekt macht historische Wetterdaten für frei wählbare Orte und
 Kalenderzeiträume vergleichbar. Der erste Use-Case untersucht, welcher von zwei
 Samstagen im August für das Schwimmfest erfahrungsgemäss günstiger ist.
 
-In der ersten implementierten Konfiguration lädt das Dashboard amtliche
-Tageswerte der MeteoSchweiz-Station Cham als Repräsentation für Zug. Zwei Linien
-stellen Niederschlag oder Höchsttemperatur des früheren und späteren
-Kandidatentags über alle vollständig verfügbaren Vergleichsjahre dar. Zusätzlich
-lassen sich die Kalenderregel und die zuletzt geladenen Tageswerte prüfen.
+In der ersten implementierten Konfiguration lädt das Dashboard amtliche Tages-
+und Stundenwerte der MeteoSchweiz-Station Cham als Repräsentation für Zug.
+
+Das Tagesdiagramm vergleicht Niederschlag, Temperatur, Wind, Böen,
+Luftfeuchtigkeit, Sonnenschein und Globalstrahlung über die Jahre. Zusätzlich
+steht ein transparenter Fest-Indikator von 0 bis 100 zur Verfügung. Ein
+separates Stundendiagramm zeigt je Kandidatentag den mittleren historischen
+Verlauf über die lokalen Stunden 1 bis 24 sowie die typische Bandbreite vom 25.
+bis zum 75. Perzentil.
 
 Das Produktziel ist nicht auf Zug, Cham, diese beiden Indikatoren oder
 Tageswerte beschränkt. Später sollen Auswertungsort, Wetterstation,
@@ -36,11 +40,12 @@ poetry run streamlit run app.py
 Streamlit öffnet das Dashboard normalerweise automatisch im Browser. Beenden
 kannst du es im Terminal mit `Ctrl+C`.
 
-Beim ersten Aufruf lädt das Dashboard die historischen Tageswerte und die
-Werte des laufenden Jahres direkt von MeteoSchweiz. Die Dateien werden nicht im
-Repository gespeichert. Solange die App läuft, hält Streamlit die eingelesenen
-Daten zwölf Stunden im Cache. Der erste Aufruf nach einem Neustart benötigt
-daher wieder eine Internetverbindung.
+Beim ersten Aufruf lädt das Dashboard die historischen Tages- und Stundenwerte
+sowie die Werte des laufenden Jahres direkt von MeteoSchweiz. Die Dateien
+werden nicht im Repository gespeichert. Solange die App läuft, hält Streamlit
+die eingelesenen Daten zwölf Stunden im Cache. Der erste Aufruf nach einem
+Neustart benötigt daher wieder eine Internetverbindung und kann wegen der
+grösseren Stundenhistorie einen Moment dauern.
 
 ## Tests ausführen
 

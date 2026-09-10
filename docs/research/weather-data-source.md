@@ -50,6 +50,14 @@ Infrastruktur:
 - [historische Tageswerte CHZ als CSV](https://data.geo.admin.ch/ch.meteoschweiz.ogd-smn/chz/ogd-smn_chz_d_historical.csv)
 - [Tageswerte des laufenden Jahres CHZ als CSV](https://data.geo.admin.ch/ch.meteoschweiz.ogd-smn/chz/ogd-smn_chz_d_recent.csv)
 
+Historische Stundenwerte stellt die amtliche STAC-Sammlung wegen ihrer Grösse
+in Jahrzehntdateien bereit, beispielsweise
+[`ogd-smn_chz_h_historical_1990-1999.csv`](https://data.geo.admin.ch/ch.meteoschweiz.ogd-smn/chz/ogd-smn_chz_h_historical_1990-1999.csv).
+Die Anwendung lädt alle für CHZ vorhandenen Jahrzehntdateien sowie die
+`h_recent`-Datei und führt Überschneidungen mit Vorrang der neueren Datei
+zusammen. Die verfügbaren Dateinamen müssen bei einer späteren freien
+Stationswahl aus dem jeweiligen STAC-Eintrag gelesen werden.
+
 Die API ist kein eigenes proprietäres MeteoSchweiz-Format, sondern folgt dem
 OGC-STAC-API-Standard. MeteoSchweiz beschreibt zudem ETag/`If-None-Match` als
 vorgesehenes Verfahren, um eine Datei nur bei Änderungen erneut zu laden

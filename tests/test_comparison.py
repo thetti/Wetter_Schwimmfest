@@ -22,7 +22,15 @@ def make_weather_data() -> pd.DataFrame:
                 utc=True,
             ),
             "max_temperature_c": (32.6, 29.9, 28.0),
+            "mean_temperature_c": (24.0, 23.0, 22.0),
+            "min_temperature_c": (16.0, 15.0, 14.0),
+            "mean_wind_kmh": (8.0, 10.0, 12.0),
+            "max_gust_kmh": (25.0, 30.0, 35.0),
+            "mean_humidity_percent": (55.0, 60.0, 65.0),
             "precipitation_mm": (0.0, 0.4, None),
+            "sunshine_minutes": (600.0, 500.0, 400.0),
+            "relative_sunshine_percent": (90.0, 80.0, 70.0),
+            "global_radiation_wm2": (260.0, 240.0, 220.0),
             "data_period": ("historical", "historical", "recent"),
         }
     )
@@ -70,3 +78,11 @@ def test_recent_values_use_open_markers_and_temperature_unit() -> None:
     assert chart.layout.yaxis.title.text == "Höchsttemperatur (°C)"
     assert chart.data[1].marker.symbol[0] == "circle-open"
     assert chart.data[1].customdata[0][1] == "laufendes Jahr (vorläufig)"
+
+
+def test_fest_indicator_chart_uses_fixed_scale() -> None:
+    comparison = build_candidate_comparison(make_weather_data().iloc[:2])
+
+    chart = create_candidate_chart(comparison, "Fest-Indikator")
+
+    assert tuple(chart.layout.yaxis.range) == (0, 100)

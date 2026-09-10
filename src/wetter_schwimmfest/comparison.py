@@ -3,6 +3,7 @@ from dataclasses import dataclass
 import pandas as pd
 
 from wetter_schwimmfest.calendar_dates import calculate_candidate_dates
+from wetter_schwimmfest.fest_indicator import add_fest_score
 
 
 EARLIER_CANDIDATE = "Früher Kandidatentag"
@@ -33,6 +34,69 @@ WEATHER_INDICATORS = {
         unit="°C",
         source_parameter="tre200dx",
         time_note="amtliches Tagesmaximum; Aggregationsfenster änderte sich um 2018",
+    ),
+    "Tagesmitteltemperatur": WeatherIndicator(
+        "mean_temperature_c",
+        "Tagesmitteltemperatur",
+        "°C",
+        "tre200d0",
+        "amtliches Tagesmittel",
+    ),
+    "Tagestiefsttemperatur": WeatherIndicator(
+        "min_temperature_c",
+        "Tagestiefsttemperatur",
+        "°C",
+        "tre200dn",
+        "amtliches Tagesminimum",
+    ),
+    "Mittlerer Wind": WeatherIndicator(
+        "mean_wind_kmh",
+        "Mittlerer Wind",
+        "km/h",
+        "fkl010d0",
+        "amtliches Tagesmittel, von m/s mit × 3,6 in km/h umgerechnet",
+    ),
+    "Stärkste Böe": WeatherIndicator(
+        "max_gust_kmh",
+        "Stärkste Böe",
+        "km/h",
+        "fu3010d1",
+        "amtliches Tagesmaximum der Sekundenböe",
+    ),
+    "Relative Luftfeuchtigkeit": WeatherIndicator(
+        "mean_humidity_percent",
+        "Relative Luftfeuchtigkeit",
+        "%",
+        "ure200d0",
+        "amtliches Tagesmittel",
+    ),
+    "Sonnenscheindauer": WeatherIndicator(
+        "sunshine_minutes",
+        "Sonnenscheindauer",
+        "min",
+        "sre000d0",
+        "amtliche Tagessumme",
+    ),
+    "Relative Sonnenscheindauer": WeatherIndicator(
+        "relative_sunshine_percent",
+        "Relative Sonnenscheindauer",
+        "%",
+        "sremaxdv",
+        "Anteil an der maximal möglichen Tagessumme",
+    ),
+    "Globalstrahlung": WeatherIndicator(
+        "global_radiation_wm2",
+        "Globalstrahlung",
+        "W/m²",
+        "gre000d0",
+        "amtliches Tagesmittel; kein UV-Index",
+    ),
+    "Fest-Indikator": WeatherIndicator(
+        "fest_score",
+        "Fest-Indikator",
+        "Punkte",
+        "Berechnung der Anwendung",
+        "feste Regeln von 0 bis 100; kein amtlicher Messwert",
     ),
 }
 
@@ -71,15 +135,19 @@ def build_candidate_comparison(weather_data: pd.DataFrame) -> pd.DataFrame:
         )
 
     candidate_data = pd.DataFrame(candidates)
-    weather_columns = (
+    weather_columns = [
         "reference_timestamp",
-        "max_temperature_c",
-        "precipitation_mm",
+        *(
+            indicator.column
+            for indicator in WEATHER_INDICATORS.values()
+            if indicator.column != "fest_score"
+        ),
         "data_period",
-    )
-    return candidate_data.merge(
+    ]
+    comparison = candidate_data.merge(
         weather_data.loc[:, weather_columns],
         how="left",
         left_on="candidate_date",
         right_on="reference_timestamp",
     ).drop(columns="reference_timestamp")
+    return add_fest_score(comparison)

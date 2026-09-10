@@ -114,3 +114,26 @@ Stundenwerte sollen später den Verlauf und das Wetter innerhalb eines örtliche
 Festzeitfensters zeigen. Beide Perspektiven verwenden die amtlichen Werte ihrer
 jeweiligen Zeitauflösung. UTC-Zeitstempel werden für die Stundenansicht korrekt
 in lokale Zeit einschliesslich Sommerzeit umgerechnet.
+
+### D-014: Fest-Indikator mit festen, sichtbaren Regeln berechnen
+
+Der Fest-Indikator bewertet einen Tag von 0 bis 100 aus Niederschlag,
+Tagesmitteltemperatur, Tagesmaximum, mittlerem Wind, stärkster Böe und relativer
+Luftfeuchtigkeit. Jede Messgrösse erhält über offen dokumentierte Stützpunkte
+einen Teilwert von 0 bis 100; zwischen den Stützpunkten wird linear gerechnet.
+Der Gesamtwert ist ein fest gewichtetes Mittel der Teilwerte.
+
+Sonnenschein und Globalstrahlung bleiben separate Tagesindikatoren, damit eine
+kurze oder fehlende Reihe die Zusammensetzung des Fest-Indikators nicht zwischen
+Jahren verändert. Fehlt eine der sechs Kernmessungen, wird für diesen Tag kein
+Fest-Indikator berechnet. Der Wert ist eine nachvollziehbare Bewertung der
+Anwendung und weder ein amtlicher MeteoSchweiz-Wert noch eine Vorhersage.
+
+### D-015: Historischen Stundenverlauf mit typischer Bandbreite zeigen
+
+Ein separates Stundendiagramm zeigt für jeden Kandidatentag und jede lokale
+Stunde von 1 bis 24 den Mittelwert über alle verfügbaren Vergleichsjahre. Ein
+farblich passendes Schattenband reicht vom 25. bis zum 75. Perzentil und zeigt
+damit die mittlere Hälfte der beobachteten Werte. Die beiden Kandidatentage
+erhalten getrennte Farben. Anzahl Jahre und tatsächlicher Zeitraum werden für
+den gewählten Stundenindikator ausgewiesen.

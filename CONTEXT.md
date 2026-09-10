@@ -75,6 +75,19 @@ Eine Wetterkennzahl, die sich auf einen ganzen Kalendertag bezieht, etwa die
 Niederschlagssumme oder die Höchsttemperatur.
 _Avoid_: Wetterwert
 
+**Fest-Indikator**:
+Eine transparente Bewertung der Anwendung von 0 bis 100, die mehrere
+Tagesindikatoren mit festen Regeln und Gewichten zusammenfasst. Sie ist kein
+amtlicher Wetterwert; 100 steht für besonders günstige und 0 für sehr
+ungünstige Bedingungen gemäss diesen Regeln.
+_Avoid_: amtlicher Festwert, Wettervorhersage
+
+**Typische Bandbreite**:
+Der Bereich zwischen dem 25. und 75. Perzentil historischer Stundenwerte. Er
+enthält die mittlere Hälfte der beobachteten Werte und ist kein Minimum-
+Maximum-Bereich.
+_Avoid_: Unsicherheit, Prognoseband
+
 **Niederschlagssumme**:
 Die während eines ausdrücklich genannten Zeitintervalls aufsummierte
 Niederschlagsmenge in Millimetern. Tages- und Stundensummen beantworten
