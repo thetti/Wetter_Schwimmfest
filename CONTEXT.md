@@ -88,6 +88,17 @@ enthält die mittlere Hälfte der beobachteten Werte und ist kein Minimum-
 Maximum-Bereich.
 _Avoid_: Unsicherheit, Prognoseband
 
+**Stundenposition**:
+Die fortlaufende Stunde innerhalb des 36-stündigen Vergleichsfensters. Die
+Positionen 1–24 gehören zum Kandidatentag, 25–36 zum Folgetag bis 12:00 Uhr.
+_Avoid_: Uhrzeit, wenn der Folgetag nicht eindeutig wäre
+
+**Typischer Stundenverlauf**:
+Die Folge der historischen Medianwerte je Stundenposition, ergänzt durch die
+typische Bandbreite. Er beschreibt eine Verteilung vergangener Beobachtungen
+und keine Vorhersage.
+_Avoid_: durchschnittlicher Tagesverlauf
+
 **Niederschlagssumme**:
 Die während eines ausdrücklich genannten Zeitintervalls aufsummierte
 Niederschlagsmenge in Millimetern. Tages- und Stundensummen beantworten

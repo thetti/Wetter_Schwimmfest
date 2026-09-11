@@ -57,8 +57,10 @@ Das erste Diagramm zeigt einen auswählbaren Tagesindikator über mehrere Jahre:
 
 - x-Achse: Vergleichsjahr
 - y-Achse: Wert des Tagesindikators mit sichtbarer Einheit
-- Linie 1: später Kandidatentag
-- Linie 2: früher Kandidatentag
+- Linie 1: früher Kandidatentag, durchgehend dunkelblau
+- Linie 2: später Kandidatentag, durchgehend hellblau
+- rechts: ein schmaler Boxplot je Kandidatentag mit denselben Messwerten und
+  derselben y-Achse
 
 Das Tagesdiagramm bietet an:
 
@@ -121,12 +123,12 @@ bietet deshalb folgende Messgrössen an:
 - mittlere relative Luftfeuchtigkeit je Stunde
 - Sonnenscheindauer oder Strahlung je Stunde, sofern an der Station verfügbar
 
-Für jede lokale Stunde von 1 bis 24 zeigt es je Kandidatentag den Mittelwert
-über alle verfügbaren Jahre. Ein Schatten vom 25. bis zum 75. Perzentil zeigt
-die typische Bandbreite. Amtliche UTC-Zeitstempel werden korrekt in lokale Zeit
-am Auswertungsort umgerechnet, einschliesslich Sommerzeit. Tages- und
-Stundenwerte bleiben getrennte Perspektiven, weil sie unterschiedliche Fragen
-beantworten.
+Für die 36 fortlaufenden Stunden vom Beginn des Kandidatentags bis 12:00 Uhr
+des Folgetags zeigt es je Kandidatentag den Median über alle verfügbaren Jahre.
+Ein Schatten vom 25. bis zum 75. Perzentil zeigt die typische Bandbreite.
+Amtliche UTC-Zeitstempel werden korrekt in lokale Zeit am Auswertungsort
+umgerechnet, einschliesslich Sommerzeit. Tages- und Stundenwerte bleiben
+getrennte Perspektiven, weil sie unterschiedliche Fragen beantworten.
 
 Grundlage: [Allgemeiner Wetterindikatorenkatalog](research/weather-indicator-catalog.md)
 

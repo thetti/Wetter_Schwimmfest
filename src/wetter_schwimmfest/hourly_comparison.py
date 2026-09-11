@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+from datetime import date, timedelta
 
 import pandas as pd
 
@@ -58,7 +59,7 @@ HOURLY_INDICATORS = {
 }
 
 
-def _candidate_days(first_day: object, last_day: object) -> pd.DataFrame:
+def _candidate_days(first_day: date, last_day: date) -> pd.DataFrame:
     candidates = []
     for year in range(first_day.year, last_day.year + 1):
         dates = calculate_candidate_dates(year)
@@ -77,11 +78,30 @@ def _candidate_days(first_day: object, last_day: object) -> pd.DataFrame:
     return pd.DataFrame(candidates)
 
 
+def _candidate_hour_slots(candidates: pd.DataFrame) -> pd.DataFrame:
+    """Erzeuge die 36 Stundenplätze ab Beginn jedes Kandidatentags."""
+    slots = []
+    for candidate in candidates.itertuples(index=False):
+        for hour_position in range(1, 37):
+            hours_after_start = hour_position - 1
+            slots.append(
+                {
+                    "comparison_year": candidate.comparison_year,
+                    "candidate": candidate.candidate,
+                    "hour_position": hour_position,
+                    "observation_day": candidate.candidate_day
+                    + timedelta(days=hours_after_start // 24),
+                    "local_start_hour": hours_after_start % 24,
+                }
+            )
+    return pd.DataFrame(slots)
+
+
 def build_hourly_candidate_profile(
     hourly_data: pd.DataFrame,
     indicator_name: str,
 ) -> pd.DataFrame:
-    """Fasse Stundenwerte je lokaler Stunde und Kandidatentag zusammen."""
+    """Fasse 36 Stunden ab Kandidatentag über die Vergleichsjahre zusammen."""
     indicator = HOURLY_INDICATORS[indicator_name]
     observations = hourly_data.copy()
 
@@ -91,20 +111,25 @@ def build_hourly_candidate_profile(
         observations["reference_timestamp"].dt.tz_convert(LOCAL_TIME_ZONE)
         - pd.Timedelta(hours=1)
     )
-    observations["candidate_day"] = interval_start.dt.date
-    observations["hour_of_day"] = interval_start.dt.hour + 1
+    observations["observation_day"] = interval_start.dt.date
+    observations["local_start_hour"] = interval_start.dt.hour
 
     candidates = _candidate_days(
-        observations["candidate_day"].min(),
-        observations["candidate_day"].max(),
+        observations["observation_day"].min(),
+        observations["observation_day"].max(),
     )
-    matched = candidates.merge(observations, on="candidate_day", how="inner")
+    candidate_hours = _candidate_hour_slots(candidates)
+    matched = candidate_hours.merge(
+        observations,
+        on=("observation_day", "local_start_hour"),
+        how="inner",
+    )
     available = matched.dropna(subset=[indicator.column])
 
     statistics = (
-        available.groupby(["candidate", "hour_of_day"], observed=True)
+        available.groupby(["candidate", "hour_position"], observed=True)
         .agg(
-            mean_value=(indicator.column, "mean"),
+            median_value=(indicator.column, "median"),
             lower_value=(indicator.column, lambda values: values.quantile(0.25)),
             upper_value=(indicator.column, lambda values: values.quantile(0.75)),
             year_count=("comparison_year", "nunique"),
@@ -113,8 +138,8 @@ def build_hourly_candidate_profile(
         )
         .reindex(
             pd.MultiIndex.from_product(
-                (CANDIDATES, range(1, 25)),
-                names=("candidate", "hour_of_day"),
+                (CANDIDATES, range(1, 37)),
+                names=("candidate", "hour_position"),
             )
         )
         .reset_index()

@@ -90,8 +90,9 @@ else:
 
 st.subheader("Typischer Stundenverlauf")
 st.write(
-    "Die Linien zeigen den Mittelwert über alle verfügbaren Jahre. Die "
-    "Schatten zeigen die typische Bandbreite vom 25. bis 75. Perzentil."
+    "Die Linien zeigen den Median über alle verfügbaren Jahre. Die "
+    "Schatten zeigen die typische Bandbreite vom 25. bis 75. Perzentil. "
+    "Der Verlauf reicht vom Kandidatentag bis 12:00 Uhr des Folgetags."
 )
 hourly_indicator_name = st.selectbox(
     "Stundenindikator",
@@ -110,7 +111,7 @@ else:
         hourly_weather_data,
         hourly_indicator_name,
     )
-    available_hours = hourly_profile.dropna(subset=["mean_value"])
+    available_hours = hourly_profile.dropna(subset=["median_value"])
     if available_hours.empty:
         st.warning(
             "Für diesen Stundenindikator sind an der Station keine Werte verfügbar."
@@ -131,7 +132,7 @@ else:
         )
         st.caption(
             f"Vergleichsjahre {first_year}–{last_year} · "
-            f"{year_count_text} Werte je Stunde und Kandidatentag · "
+            f"{year_count_text} Werte je Stundenposition und Kandidatentag · "
             f"Parameter {hourly_indicator.source_parameter} · "
             "lokale Zeit Europe/Zurich"
         )

@@ -2,7 +2,7 @@ import math
 
 import pandas as pd
 
-from wetter_schwimmfest.charts import create_candidate_chart
+from wetter_schwimmfest.charts import CANDIDATE_COLORS, create_candidate_chart
 from wetter_schwimmfest.comparison import (
     EARLIER_CANDIDATE,
     LATER_CANDIDATE,
@@ -49,21 +49,35 @@ def test_comparison_uses_candidate_dates_of_complete_years() -> None:
     assert list(comparison["precipitation_mm"]) == [0.0, 0.4]
 
 
-def test_chart_has_two_lines_and_does_not_connect_missing_values() -> None:
+def test_chart_has_two_lines_and_two_matching_boxplots() -> None:
     weather_data = make_weather_data().iloc[:2].copy()
     weather_data.loc[0, "precipitation_mm"] = None
     comparison = build_candidate_comparison(weather_data)
 
     chart = create_candidate_chart(comparison, "Niederschlagssumme")
+    lines = [trace for trace in chart.data if trace.type == "scatter"]
+    boxes = [trace for trace in chart.data if trace.type == "box"]
 
-    assert [line.name for line in chart.data] == [
+    assert [line.name for line in lines] == [
         EARLIER_CANDIDATE,
         LATER_CANDIDATE,
     ]
-    assert all(line.connectgaps is False for line in chart.data)
-    assert math.isnan(chart.data[0].y[0])
+    assert [box.name for box in boxes] == ["Früher", "Später"]
+    assert [line.line.color for line in lines] == [
+        CANDIDATE_COLORS[EARLIER_CANDIDATE],
+        CANDIDATE_COLORS[LATER_CANDIDATE],
+    ]
+    assert [box.line.color for box in boxes] == [
+        CANDIDATE_COLORS[EARLIER_CANDIDATE],
+        CANDIDATE_COLORS[LATER_CANDIDATE],
+    ]
+    assert all(line.connectgaps is False for line in lines)
+    assert math.isnan(lines[0].y[0])
+    assert len(boxes[0].y) == 0
+    assert list(boxes[1].y) == [0.4]
     assert chart.layout.yaxis.title.text == "Niederschlagssumme (mm)"
-    assert chart.data[0].customdata[0][0] == "09.08.2025"
+    assert chart.layout.yaxis2.matches == "y"
+    assert lines[0].customdata[0][0] == "09.08.2025"
 
 
 def test_recent_values_use_open_markers_and_temperature_unit() -> None:
@@ -74,10 +88,11 @@ def test_recent_values_use_open_markers_and_temperature_unit() -> None:
     comparison = build_candidate_comparison(weather_data)
 
     chart = create_candidate_chart(comparison, "Höchsttemperatur")
+    lines = [trace for trace in chart.data if trace.type == "scatter"]
 
     assert chart.layout.yaxis.title.text == "Höchsttemperatur (°C)"
-    assert chart.data[1].marker.symbol[0] == "circle-open"
-    assert chart.data[1].customdata[0][1] == "laufendes Jahr (vorläufig)"
+    assert lines[1].marker.symbol[0] == "circle-open"
+    assert lines[1].customdata[0][1] == "laufendes Jahr (vorläufig)"
 
 
 def test_fest_indicator_chart_uses_fixed_scale() -> None:

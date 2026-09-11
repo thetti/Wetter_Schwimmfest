@@ -131,9 +131,20 @@ Anwendung und weder ein amtlicher MeteoSchweiz-Wert noch eine Vorhersage.
 
 ### D-015: Historischen Stundenverlauf mit typischer Bandbreite zeigen
 
-Ein separates Stundendiagramm zeigt für jeden Kandidatentag und jede lokale
-Stunde von 1 bis 24 den Mittelwert über alle verfügbaren Vergleichsjahre. Ein
-farblich passendes Schattenband reicht vom 25. bis zum 75. Perzentil und zeigt
-damit die mittlere Hälfte der beobachteten Werte. Die beiden Kandidatentage
-erhalten getrennte Farben. Anzahl Jahre und tatsächlicher Zeitraum werden für
-den gewählten Stundenindikator ausgewiesen.
+Ein separates Stundendiagramm zeigt für jeden Kandidatentag den Median über alle
+verfügbaren Vergleichsjahre. Das Vergleichsfenster umfasst 36 fortlaufende
+Stunden: Stunde 1 bis 24 gehört zum Kandidatentag, Stunde 25 bis 36 entspricht
+01:00 bis 12:00 Uhr des Folgetags. Ein farblich passendes Schattenband reicht
+vom 25. bis zum 75. Perzentil und zeigt damit die mittlere Hälfte der
+beobachteten Werte. Anzahl Jahre und tatsächlicher Zeitraum werden für den
+gewählten Stundenindikator ausgewiesen.
+
+### D-016: Tagesverteilung und Farben konsistent darstellen
+
+Rechts neben dem zeitlichen Tagesvergleich zeigt eine schmale Teilgrafik je
+Kandidatentag einen Boxplot derselben verfügbaren Messwerte. So bleiben Verlauf
+und Verteilung gemeinsam sichtbar und verwenden dieselbe y-Achse.
+
+Der frühere Kandidatentag wird in allen Linien, Bändern und Boxplots dunkelblau
+dargestellt, der spätere Kandidatentag hellblau. Diese Farbzuordnung ändert sich
+nicht zwischen Indikatoren oder Diagrammen.
