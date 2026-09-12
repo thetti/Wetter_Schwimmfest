@@ -2,7 +2,11 @@ import math
 
 import pandas as pd
 
-from wetter_schwimmfest.charts import CANDIDATE_COLORS, create_candidate_chart
+from wetter_schwimmfest.charts import (
+    CANDIDATE_COLORS,
+    create_candidate_distribution_chart,
+    create_candidate_trend_chart,
+)
 from wetter_schwimmfest.comparison import (
     EARLIER_CANDIDATE,
     LATER_CANDIDATE,
@@ -49,20 +53,24 @@ def test_comparison_uses_candidate_dates_of_complete_years() -> None:
     assert list(comparison["precipitation_mm"]) == [0.0, 0.4]
 
 
-def test_chart_has_two_lines_and_two_matching_boxplots() -> None:
+def test_daily_charts_have_two_lines_and_two_matching_boxplots() -> None:
     weather_data = make_weather_data().iloc[:2].copy()
     weather_data.loc[0, "precipitation_mm"] = None
     comparison = build_candidate_comparison(weather_data)
 
-    chart = create_candidate_chart(comparison, "Niederschlagssumme")
-    lines = [trace for trace in chart.data if trace.type == "scatter"]
-    boxes = [trace for trace in chart.data if trace.type == "box"]
+    trend_chart = create_candidate_trend_chart(comparison, "Niederschlagssumme")
+    distribution_chart = create_candidate_distribution_chart(
+        comparison,
+        "Niederschlagssumme",
+    )
+    lines = list(trend_chart.data)
+    boxes = list(distribution_chart.data)
 
     assert [line.name for line in lines] == [
         EARLIER_CANDIDATE,
         LATER_CANDIDATE,
     ]
-    assert [box.name for box in boxes] == ["Früher", "Später"]
+    assert [box.name for box in boxes] == [EARLIER_CANDIDATE, LATER_CANDIDATE]
     assert [line.line.color for line in lines] == [
         CANDIDATE_COLORS[EARLIER_CANDIDATE],
         CANDIDATE_COLORS[LATER_CANDIDATE],
@@ -75,8 +83,8 @@ def test_chart_has_two_lines_and_two_matching_boxplots() -> None:
     assert math.isnan(lines[0].y[0])
     assert len(boxes[0].y) == 0
     assert list(boxes[1].y) == [0.4]
-    assert chart.layout.yaxis.title.text == "Niederschlagssumme (mm)"
-    assert chart.layout.yaxis2.matches == "y"
+    assert trend_chart.layout.yaxis.title.text == "Niederschlagssumme (mm)"
+    assert trend_chart.layout.yaxis.range == distribution_chart.layout.yaxis.range
     assert lines[0].customdata[0][0] == "09.08.2025"
 
 
@@ -87,8 +95,8 @@ def test_recent_values_use_open_markers_and_temperature_unit() -> None:
     )
     comparison = build_candidate_comparison(weather_data)
 
-    chart = create_candidate_chart(comparison, "Höchsttemperatur")
-    lines = [trace for trace in chart.data if trace.type == "scatter"]
+    chart = create_candidate_trend_chart(comparison, "Höchsttemperatur")
+    lines = list(chart.data)
 
     assert chart.layout.yaxis.title.text == "Höchsttemperatur (°C)"
     assert lines[1].marker.symbol[0] == "circle-open"
@@ -98,6 +106,11 @@ def test_recent_values_use_open_markers_and_temperature_unit() -> None:
 def test_fest_indicator_chart_uses_fixed_scale() -> None:
     comparison = build_candidate_comparison(make_weather_data().iloc[:2])
 
-    chart = create_candidate_chart(comparison, "Fest-Indikator")
+    trend_chart = create_candidate_trend_chart(comparison, "Fest-Indikator")
+    distribution_chart = create_candidate_distribution_chart(
+        comparison,
+        "Fest-Indikator",
+    )
 
-    assert tuple(chart.layout.yaxis.range) == (0, 100)
+    assert tuple(trend_chart.layout.yaxis.range) == (0, 100)
+    assert tuple(distribution_chart.layout.yaxis.range) == (0, 100)

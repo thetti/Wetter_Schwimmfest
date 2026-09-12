@@ -10,10 +10,12 @@ und Stundenwerte der MeteoSchweiz-Station Cham als Repräsentation für Zug.
 Das Tagesdiagramm vergleicht Niederschlag, Temperatur, Wind, Böen,
 Luftfeuchtigkeit, Sonnenschein und Globalstrahlung über die Jahre. Zusätzlich
 steht ein transparenter Fest-Indikator von 0 bis 100 zur Verfügung. Ein
-schmaler Boxplot je Kandidatentag ergänzt den Jahresverlauf um die Verteilung
-der Tageswerte. Ein separates Stundendiagramm zeigt je Kandidatentag den
-historischen Median vom Beginn des Kandidatentags bis 12:00 Uhr des Folgetags
+schmaler Boxplot je Datum ergänzt den Jahresverlauf um die Verteilung der
+Tageswerte. Ein separates Stundendiagramm zeigt für Datum 1 und Datum 2 den
+historischen Median vom Beginn des Datums bis 12:00 Uhr des Folgetags
 sowie die typische Bandbreite vom 25. bis zum 75. Perzentil.
+Das Dashboard passt Diagramme und Tabellen an kleine Bildschirme an; Verlauf
+und Verteilung werden auf Mobiltelefonen untereinander dargestellt.
 
 Das Produktziel ist nicht auf Zug, Cham, diese beiden Indikatoren oder
 Tageswerte beschränkt. Später sollen Auswertungsort, Wetterstation,

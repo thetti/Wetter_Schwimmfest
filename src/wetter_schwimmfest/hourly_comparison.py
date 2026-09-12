@@ -79,7 +79,7 @@ def _candidate_days(first_day: date, last_day: date) -> pd.DataFrame:
 
 
 def _candidate_hour_slots(candidates: pd.DataFrame) -> pd.DataFrame:
-    """Erzeuge die 36 Stundenplätze ab Beginn jedes Kandidatentags."""
+    """Erzeuge die 36 Stundenplätze ab Beginn jedes Vergleichsdatums."""
     slots = []
     for candidate in candidates.itertuples(index=False):
         for hour_position in range(1, 37):
@@ -101,7 +101,7 @@ def build_hourly_candidate_profile(
     hourly_data: pd.DataFrame,
     indicator_name: str,
 ) -> pd.DataFrame:
-    """Fasse 36 Stunden ab Kandidatentag über die Vergleichsjahre zusammen."""
+    """Fasse 36 Stunden ab Vergleichsdatum über die Vergleichsjahre zusammen."""
     indicator = HOURLY_INDICATORS[indicator_name]
     observations = hourly_data.copy()
 

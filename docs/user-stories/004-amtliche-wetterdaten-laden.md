@@ -71,8 +71,8 @@ Bedienen der App werden dieselben Dateien nicht ständig erneut heruntergeladen.
 | Zusammengeführt | 11'999 eindeutige Tageszeilen |
 | Erster Tag | 11.06.1993: 17,8 °C; 25,6 mm |
 | Neuester Tag | 08.09.2026: 31,2 °C; 0,0 mm |
-| Früher Kandidatentag 2025 | 09.08.2025: 32,6 °C; 0,0 mm |
-| Später Kandidatentag 2025 | 16.08.2025: 29,9 °C; 0,4 mm |
+| Datum 1 im Jahr 2025 | 09.08.2025: 32,6 °C; 0,0 mm |
+| Datum 2 im Jahr 2025 | 16.08.2025: 29,9 °C; 0,4 mm |
 
 Die Werte wurden sowohl mit dem neuen Einlesecode als auch direkt in den
 amtlichen CSV-Zeilen kontrolliert.

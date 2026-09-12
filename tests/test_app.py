@@ -55,18 +55,13 @@ def test_dashboard_starts_without_error() -> None:
         "Niederschlagssumme",
         "Niederschlag",
     ]
-    assert len(app.get("plotly_chart")) == 2
+    assert len(app.get("plotly_chart")) == 3
     assert app.subheader[0].value == "Tageswerte im Jahresvergleich"
     assert app.subheader[1].value == "Typischer Stundenverlauf"
-    assert app.subheader[2].value == "Kalenderregel prüfen"
-    assert app.number_input[0].label == "Vergleichsjahr"
-    assert [metric.label for metric in app.metric] == [
-        "Schulstart (Montag)",
-        "Früher Kandidatentag (Samstag)",
-        "Später Kandidatentag (Samstag)",
-    ]
-    assert app.subheader[3].value == "Geladene amtliche Tageswerte"
-    assert len(app.dataframe) == 1
+    assert app.subheader[2].value == "Geladene amtliche Tageswerte"
+    assert not app.number_input
+    assert not app.metric
+    assert len(app.dataframe) == 2
 
 
 def test_dashboard_shows_a_clear_message_when_download_fails() -> None:

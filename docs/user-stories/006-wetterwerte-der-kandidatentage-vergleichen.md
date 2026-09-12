@@ -14,7 +14,7 @@ oder Höchsttemperatur der beiden Termine unmittelbar vergleichen kann.
 
 Das bisherige Demo-Diagramm wird durch das erste fachliche Diagramm ersetzt.
 Es zeigt pro Vergleichsjahr zwei Linien mit den amtlichen Werten der Station
-Cham: eine für den früheren und eine für den späteren Kandidatentag.
+Cham: eine für Datum 1 und eine für Datum 2.
 
 ## Umfang
 
@@ -45,8 +45,8 @@ Cham: eine für den früheren und eine für den späteren Kandidatentag.
 - Fehlende Werte werden nicht als null behandelt und nicht überbrückt.
 - Werte aus dem laufenden Jahr sind als vorläufig erkennbar.
 - Für 2025 erscheinen die direkt kontrollierten amtlichen Werte:
-  - früher Kandidatentag: 32,6 °C und 0,0 mm
-  - später Kandidatentag: 29,9 °C und 0,4 mm
+  - Datum 1: 32,6 °C und 0,0 mm
+  - Datum 2: 29,9 °C und 0,4 mm
 - Das Dashboard enthält keine künstlichen Wetterwerte mehr.
 
 ## Umsetzungsergebnis
@@ -61,8 +61,8 @@ Cham: eine für den früheren und eine für den späteren Kandidatentag.
 - Der Tooltip zeigt Vergleichsjahr, genaues Datum, Messwert und Datenstand.
 - Die Werte des laufenden Jahres haben offene Markierungen und den Hinweis
   „vorläufig“.
-- Die amtliche Stichprobe für 2025 bestätigt 32,6 °C und 0,0 mm am früheren
-  sowie 29,9 °C und 0,4 mm am späteren Kandidatentag.
+- Die amtliche Stichprobe für 2025 bestätigt 32,6 °C und 0,0 mm für Datum 1
+  sowie 29,9 °C und 0,4 mm für Datum 2.
 - Das Dashboard wurde mit beiden Indikatoren und dem Tooltip für 2026 im
   Browser geprüft.
 - Alle dreizehn automatischen Tests bestehen ohne Internetzugriff.

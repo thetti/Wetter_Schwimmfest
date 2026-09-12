@@ -6,8 +6,8 @@ from wetter_schwimmfest.calendar_dates import calculate_candidate_dates
 from wetter_schwimmfest.fest_indicator import add_fest_score
 
 
-EARLIER_CANDIDATE = "Früher Kandidatentag"
-LATER_CANDIDATE = "Später Kandidatentag"
+EARLIER_CANDIDATE = "Datum 1"
+LATER_CANDIDATE = "Datum 2"
 CANDIDATES = (EARLIER_CANDIDATE, LATER_CANDIDATE)
 
 
@@ -102,7 +102,7 @@ WEATHER_INDICATORS = {
 
 
 def build_candidate_comparison(weather_data: pd.DataFrame) -> pd.DataFrame:
-    """Verbinde die Kandidatentage vollständiger Jahre mit den Tageswerten."""
+    """Verbinde Datum 1 und Datum 2 vollständiger Jahre mit den Tageswerten."""
     first_weather_day = weather_data["reference_timestamp"].min().date()
     last_weather_day = weather_data["reference_timestamp"].max().date()
 

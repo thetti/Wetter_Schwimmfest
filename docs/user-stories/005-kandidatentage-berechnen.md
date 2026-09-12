@@ -6,8 +6,8 @@ Umgesetzt und geprüft.
 
 ## Story
 
-Als Nutzer möchte ich für ein Vergleichsjahr den Schulstart sowie den früheren
-und späteren Kandidatentag berechnen lassen, damit die Kalenderregel eindeutig
+Als Nutzer möchte ich für ein Vergleichsjahr den Schulstart sowie Datum 1 und
+Datum 2 berechnen lassen, damit die Kalenderregel eindeutig
 und unabhängig von den Wetterdaten angewendet wird.
 
 ## Sichtbares Ergebnis
@@ -20,8 +20,8 @@ eine Woche früher.
 
 - Kalenderberechnung in einem eigenen, kleinen Python-Modul umsetzen
 - Schulstart strikt als ersten Montag nach dem 15. August bestimmen
-- späteren Kandidatentag als Samstag direkt vor dem Schulstart bestimmen
-- früheren Kandidatentag als Samstag sieben Tage davor bestimmen
+- Datum 2 als Samstag direkt vor dem Schulstart bestimmen
+- Datum 1 als Samstag sieben Tage davor bestimmen
 - Vergleichsjahr im Dashboard eingeben und die drei Daten anzeigen
 - dokumentierte Beispieljahre und einen Sonderfall automatisch prüfen
 
@@ -55,3 +55,6 @@ eine Woche früher.
   Daten wurden im Browser für 2026 und 2022 kontrolliert.
 - Insgesamt bestehen elf automatische Tests, davon fünf konkrete Fälle für die
   neue Kalenderlogik.
+
+Die eigenständige Kalenderprüfsektion wurde mit User-Story 010 später aus dem
+Dashboard entfernt; die hier entstandene Kalenderlogik bleibt erhalten.

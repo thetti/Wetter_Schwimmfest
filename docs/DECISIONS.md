@@ -10,7 +10,7 @@ relevant sind. Architekturentscheidungen erhalten erst bei Bedarf eigene ADRs.
 Der Schulstart ist der erste Montag nach dem 15. August. Die Formulierung „nach“
 ist strikt; der 15. August selbst zählt auch dann nicht, wenn er ein Montag ist.
 
-### D-002: Zwei Kandidatentage als erster Use-Case
+### D-002: Zwei Vergleichsdaten als erster Use-Case
 
 Verglichen werden der Samstag direkt vor dem Schulstart und der Samstag genau
 eine Woche davor. Diese Auswahl definiert die erste Darstellung, aber nicht den
@@ -19,8 +19,8 @@ gesamten Funktionsumfang des Dashboards.
 ### D-003: Historisches Wetter-Dashboard
 
 Die Anwendung stellt historische Wetterdaten über mehrere Jahre dar. Der erste
-Vergleich zeigt je eine Linie pro Kandidatentag, mit dem Vergleichsjahr auf der
-x-Achse und einem Tagesindikator auf der y-Achse.
+Vergleich zeigt je eine Linie für Datum 1 und Datum 2, mit dem Vergleichsjahr
+auf der x-Achse und einem Tagesindikator auf der y-Achse.
 
 ### D-004: Entwicklungsunterstützung statt Laufzeit-Agent
 
@@ -131,9 +131,9 @@ Anwendung und weder ein amtlicher MeteoSchweiz-Wert noch eine Vorhersage.
 
 ### D-015: Historischen Stundenverlauf mit typischer Bandbreite zeigen
 
-Ein separates Stundendiagramm zeigt für jeden Kandidatentag den Median über alle
+Ein separates Stundendiagramm zeigt für Datum 1 und Datum 2 den Median über alle
 verfügbaren Vergleichsjahre. Das Vergleichsfenster umfasst 36 fortlaufende
-Stunden: Stunde 1 bis 24 gehört zum Kandidatentag, Stunde 25 bis 36 entspricht
+Stunden: Stunde 1 bis 24 gehört zum gewählten Datum, Stunde 25 bis 36 entspricht
 01:00 bis 12:00 Uhr des Folgetags. Ein farblich passendes Schattenband reicht
 vom 25. bis zum 75. Perzentil und zeigt damit die mittlere Hälfte der
 beobachteten Werte. Anzahl Jahre und tatsächlicher Zeitraum werden für den
@@ -141,10 +141,22 @@ gewählten Stundenindikator ausgewiesen.
 
 ### D-016: Tagesverteilung und Farben konsistent darstellen
 
-Rechts neben dem zeitlichen Tagesvergleich zeigt eine schmale Teilgrafik je
-Kandidatentag einen Boxplot derselben verfügbaren Messwerte. So bleiben Verlauf
-und Verteilung gemeinsam sichtbar und verwenden dieselbe y-Achse.
+Rechts neben dem zeitlichen Tagesvergleich zeigt eine schmale Teilgrafik für
+Datum 1 und Datum 2 je einen Boxplot derselben verfügbaren Messwerte. So bleiben
+Verlauf und Verteilung gemeinsam sichtbar und verwenden dieselbe y-Achse.
 
-Der frühere Kandidatentag wird in allen Linien, Bändern und Boxplots dunkelblau
-dargestellt, der spätere Kandidatentag hellblau. Diese Farbzuordnung ändert sich
-nicht zwischen Indikatoren oder Diagrammen.
+Datum 1 wird in allen Linien, Bändern und Boxplots dunkelblau dargestellt,
+Datum 2 hellblau. Diese Farbzuordnung ändert sich nicht zwischen Indikatoren
+oder Diagrammen.
+
+### D-017: Dashboard auf die Wetterauswertung fokussieren
+
+Die sichtbaren Vergleichsdaten heissen durchgehend Datum 1 und Datum 2. Datum 1
+ist der frühere und Datum 2 der spätere Samstag. Die eigenständige Ansicht zur
+Prüfung der Kalenderregel entfällt; die Kalenderlogik bleibt Grundlage der
+Wetterauswertung.
+
+Auf breiten Bildschirmen stehen Jahresverlauf und Verteilung im Verhältnis
+breit zu schmal nebeneinander. Auf kleinen Bildschirmen werden sie untereinander
+dargestellt. Diagramme, Tabellen und Beschriftungen müssen ohne horizontales
+Scrollen der gesamten Seite bedienbar bleiben.

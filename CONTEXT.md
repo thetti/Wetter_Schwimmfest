@@ -13,13 +13,13 @@ Der erste Montag, der kalendarisch nach dem 15. August eines Vergleichsjahres
 liegt.
 _Avoid_: Referenzdatum
 
-**Später Kandidatentag**:
-Der Samstag direkt vor dem Schulstart eines Vergleichsjahres.
-_Avoid_: erster Samstag, Referenzsamstag
+**Datum 1**:
+Der Samstag genau eine Woche vor Datum 2.
+_Avoid_: früher Kandidatentag, erstes Datum
 
-**Früher Kandidatentag**:
-Der Samstag genau eine Woche vor dem späteren Kandidatentag.
-_Avoid_: zweiter Samstag, anderer Samstag
+**Datum 2**:
+Der Samstag direkt vor dem Schulstart eines Vergleichsjahres.
+_Avoid_: später Kandidatentag, zweites Datum
 
 **Vergleichsjahr**:
 Ein Kalenderjahr, in dem dieselbe Kalenderauswahl mit historischen
@@ -90,7 +90,7 @@ _Avoid_: Unsicherheit, Prognoseband
 
 **Stundenposition**:
 Die fortlaufende Stunde innerhalb des 36-stündigen Vergleichsfensters. Die
-Positionen 1–24 gehören zum Kandidatentag, 25–36 zum Folgetag bis 12:00 Uhr.
+Positionen 1–24 gehören zum gewählten Datum, 25–36 zum Folgetag bis 12:00 Uhr.
 _Avoid_: Uhrzeit, wenn der Folgetag nicht eindeutig wäre
 
 **Typischer Stundenverlauf**:

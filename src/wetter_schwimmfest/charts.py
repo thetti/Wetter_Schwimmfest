@@ -1,6 +1,5 @@
 import pandas as pd
 import plotly.graph_objects as go
-from plotly.subplots import make_subplots
 
 from wetter_schwimmfest.comparison import (
     CANDIDATES,
@@ -19,22 +18,33 @@ CANDIDATE_FILL_COLORS = {
 }
 
 
-def create_candidate_chart(
+def _candidate_value_range(
+    comparison: pd.DataFrame,
+    indicator_name: str,
+) -> tuple[float, float] | None:
+    indicator = WEATHER_INDICATORS[indicator_name]
+    if indicator.column == "fest_score":
+        return (0, 100)
+
+    values = comparison[indicator.column].dropna()
+    if values.empty:
+        return None
+
+    minimum = float(values.min())
+    maximum = float(values.max())
+    padding = max((maximum - minimum) * 0.08, abs(maximum) * 0.03, 0.5)
+    return (minimum - padding, maximum + padding)
+
+
+def create_candidate_trend_chart(
     comparison: pd.DataFrame,
     indicator_name: str,
 ) -> go.Figure:
-    """Erzeuge das Liniendiagramm für einen amtlichen Tagesindikator."""
+    """Erzeuge den Jahresverlauf für einen amtlichen Tagesindikator."""
     indicator = WEATHER_INDICATORS[indicator_name]
-    figure = make_subplots(
-        rows=1,
-        cols=2,
-        shared_yaxes=True,
-        column_widths=(0.84, 0.16),
-        horizontal_spacing=0.04,
-        subplot_titles=("Jahresverlauf", "Verteilung"),
-    )
+    figure = go.Figure()
 
-    for candidate in CANDIDATES:
+    for candidate_number, candidate in enumerate(CANDIDATES, start=1):
         series = comparison.loc[comparison["candidate"] == candidate]
         quality_labels = series["data_period"].map(
             {"historical": "historisch", "recent": "laufendes Jahr (vorläufig)"}
@@ -52,6 +62,7 @@ def create_candidate_chart(
             x=series["comparison_year"],
             y=series[indicator.column],
             name=candidate,
+            legendrank=candidate_number,
             mode="lines+markers",
             connectgaps=False,
             customdata=custom_data,
@@ -69,14 +80,48 @@ def create_candidate_chart(
                 f"{indicator.label}: %{{y}} {indicator.unit}<br>"
                 "%{customdata[1]}<extra>%{fullData.name}</extra>"
             ),
-            row=1,
-            col=1,
         )
 
+    figure.update_layout(
+        title="Jahresverlauf",
+        xaxis={"title": "Jahr", "tickformat": "d", "automargin": True},
+        yaxis={
+            "title": f"{indicator.label} ({indicator.unit})",
+            "range": _candidate_value_range(comparison, indicator_name),
+            "automargin": True,
+        },
+        legend={
+            "orientation": "h",
+            "x": 0,
+            "y": 1.02,
+            "yanchor": "bottom",
+            "title": None,
+        },
+        hovermode="closest",
+        height=430,
+        margin={"l": 10, "r": 10, "t": 85, "b": 55},
+    )
+    return figure
+
+
+def create_candidate_distribution_chart(
+    comparison: pd.DataFrame,
+    indicator_name: str,
+) -> go.Figure:
+    """Erzeuge die Verteilung der Tageswerte für Datum 1 und Datum 2."""
+    indicator = WEATHER_INDICATORS[indicator_name]
+    figure = go.Figure()
+
+    for candidate_number, candidate in enumerate(CANDIDATES, start=1):
+        color = CANDIDATE_COLORS[candidate]
+        values = comparison.loc[
+            comparison["candidate"] == candidate,
+            indicator.column,
+        ].dropna()
         figure.add_box(
-            y=series[indicator.column].dropna(),
-            name="Früher" if candidate == CANDIDATES[0] else "Später",
-            legendgroup=candidate,
+            y=values,
+            name=candidate,
+            legendrank=candidate_number,
             showlegend=False,
             boxpoints="outliers",
             marker={"color": color},
@@ -86,20 +131,17 @@ def create_candidate_chart(
                 f"{candidate}<br>{indicator.label}: %{{y}} {indicator.unit}"
                 "<extra></extra>"
             ),
-            row=1,
-            col=2,
         )
 
     figure.update_layout(
-        title=f"{indicator.label} an den Kandidatentagen",
-        xaxis={"title": "Vergleichsjahr", "tickformat": "d"},
-        xaxis2={"title": "Kandidatentag"},
+        title="Verteilung",
+        xaxis={"title": None, "automargin": True},
         yaxis={
-            "title": f"{indicator.label} ({indicator.unit})",
-            "range": [0, 100] if indicator.column == "fest_score" else None,
+            "range": _candidate_value_range(comparison, indicator_name),
+            "automargin": True,
         },
-        legend_title="Vergleichstag",
-        hovermode="closest",
+        height=430,
+        margin={"l": 10, "r": 10, "t": 85, "b": 55},
     )
     return figure
 
@@ -112,6 +154,7 @@ def create_hourly_profile_chart(
     indicator = HOURLY_INDICATORS[indicator_name]
     figure = go.Figure()
 
+    # Schatten zuerst zeichnen, damit beide Medianlinien gut sichtbar darüber liegen.
     for candidate in CANDIDATES:
         series = profile.loc[profile["candidate"] == candidate]
         color = CANDIDATE_COLORS[candidate]
@@ -134,10 +177,14 @@ def create_hourly_profile_chart(
             hoverinfo="skip",
             showlegend=False,
         )
+
+    for candidate_number, candidate in enumerate(CANDIDATES, start=1):
+        series = profile.loc[profile["candidate"] == candidate]
+        color = CANDIDATE_COLORS[candidate]
         custom_data = list(
             zip(
                 [
-                    f"Kandidatentag, Stunde {hour}"
+                    f"Datum, Stunde {hour}"
                     if hour <= 24
                     else f"Folgetag, Stunde {hour - 24}"
                     for hour in series["hour_position"]
@@ -152,6 +199,7 @@ def create_hourly_profile_chart(
             x=series["hour_position"],
             y=series["median_value"],
             name=candidate,
+            legendrank=candidate_number,
             mode="lines+markers",
             line={"color": color},
             customdata=custom_data,
@@ -163,32 +211,36 @@ def create_hourly_profile_chart(
             ),
         )
 
-    tick_values = (1, 4, 8, 12, 16, 20, 24, 25, 28, 32, 36)
+    tick_values = (1, 6, 12, 18, 24, 30, 36)
     tick_labels = (
         "1",
-        "4",
-        "8",
+        "6",
         "12",
-        "16",
-        "20",
+        "18",
         "24",
-        "1<br>Folgetag",
-        "4<br>Folgetag",
-        "8<br>Folgetag",
+        "6<br>Folgetag",
         "12<br>Folgetag",
     )
     figure.update_layout(
         title=f"Typischer Stundenverlauf: {indicator.label}",
         xaxis={
-            "title": "Lokale Stunde ab Kandidatentag",
+            "title": "Lokale Stunde ab Datum",
             "tickmode": "array",
             "tickvals": tick_values,
             "ticktext": tick_labels,
             "range": [1, 36],
         },
         yaxis_title=f"{indicator.label} ({indicator.unit})",
-        legend_title="Vergleichstag",
+        legend={
+            "orientation": "h",
+            "x": 0,
+            "y": 1.02,
+            "yanchor": "bottom",
+            "title": None,
+        },
         hovermode="x unified",
+        height=460,
+        margin={"l": 10, "r": 10, "t": 85, "b": 65},
     )
     figure.add_vline(
         x=24.5,

@@ -1,10 +1,8 @@
-from datetime import date
-
 import streamlit as st
 
-from wetter_schwimmfest.calendar_dates import calculate_candidate_dates
 from wetter_schwimmfest.charts import (
-    create_candidate_chart,
+    create_candidate_distribution_chart,
+    create_candidate_trend_chart,
     create_hourly_profile_chart,
 )
 from wetter_schwimmfest.comparison import WEATHER_INDICATORS, build_candidate_comparison
@@ -20,7 +18,11 @@ from wetter_schwimmfest.weather_data import (
 )
 
 
-st.set_page_config(page_title="Wetter Schwimmfest", page_icon="🏊")
+st.set_page_config(
+    page_title="Wetter Schwimmfest",
+    page_icon="🏊",
+    layout="wide",
+)
 
 st.title("Wettervergleich Schwimmfest")
 st.caption("Historischer Vergleich amtlicher Tages- und Stundenwerte")
@@ -53,7 +55,11 @@ with st.expander(
         "gerechnet. Der Fest-Indikator ist die gewichtete Summe aller "
         "Teilwerte. Fehlt ein Kernwert, bleibt das Ergebnis leer."
     )
-    st.table(fest_score_explanation())
+    st.dataframe(
+        fest_score_explanation(),
+        hide_index=True,
+        width="stretch",
+    )
     st.caption(
         "Der Fest-Indikator ist eine transparente Bewertung dieser Anwendung, "
         "kein amtlicher MeteoSchweiz-Wert und keine Wettervorhersage."
@@ -71,10 +77,30 @@ else:
     if available_daily.empty:
         st.warning("Für diesen Tagesindikator sind an der Station keine Werte verfügbar.")
     else:
-        st.plotly_chart(
-            create_candidate_chart(daily_comparison, daily_indicator_name),
-            width="stretch",
+        trend_column, distribution_column = st.columns(
+            (4, 1),
+            gap="small",
+            vertical_alignment="top",
+            wrap=True,
         )
+        with trend_column:
+            st.plotly_chart(
+                create_candidate_trend_chart(
+                    daily_comparison,
+                    daily_indicator_name,
+                ),
+                width="stretch",
+                config={"displayModeBar": False, "responsive": True},
+            )
+        with distribution_column:
+            st.plotly_chart(
+                create_candidate_distribution_chart(
+                    daily_comparison,
+                    daily_indicator_name,
+                ),
+                width="stretch",
+                config={"displayModeBar": False, "responsive": True},
+            )
         first_year = int(available_daily["comparison_year"].min())
         last_year = int(available_daily["comparison_year"].max())
         st.caption(
@@ -92,7 +118,7 @@ st.subheader("Typischer Stundenverlauf")
 st.write(
     "Die Linien zeigen den Median über alle verfügbaren Jahre. Die "
     "Schatten zeigen die typische Bandbreite vom 25. bis 75. Perzentil. "
-    "Der Verlauf reicht vom Kandidatentag bis 12:00 Uhr des Folgetags."
+    "Der Verlauf reicht vom gewählten Datum bis 12:00 Uhr des Folgetags."
 )
 hourly_indicator_name = st.selectbox(
     "Stundenindikator",
@@ -120,6 +146,7 @@ else:
         st.plotly_chart(
             create_hourly_profile_chart(hourly_profile, hourly_indicator_name),
             width="stretch",
+            config={"displayModeBar": False, "responsive": True},
         )
         first_year = int(available_hours["first_year"].min())
         last_year = int(available_hours["last_year"].max())
@@ -132,33 +159,10 @@ else:
         )
         st.caption(
             f"Vergleichsjahre {first_year}–{last_year} · "
-            f"{year_count_text} Werte je Stundenposition und Kandidatentag · "
+            f"{year_count_text} Werte je Stundenposition und Datum · "
             f"Parameter {hourly_indicator.source_parameter} · "
             "lokale Zeit Europe/Zurich"
         )
-
-st.subheader("Kalenderregel prüfen")
-comparison_year = st.number_input(
-    "Vergleichsjahr",
-    min_value=1900,
-    max_value=2100,
-    value=date.today().year,
-    step=1,
-)
-candidate_dates = calculate_candidate_dates(comparison_year)
-
-school_start_column, earlier_day_column, later_day_column = st.columns(3)
-school_start_column.metric(
-    "Schulstart (Montag)", candidate_dates.school_start.strftime("%d.%m.%Y")
-)
-earlier_day_column.metric(
-    "Früher Kandidatentag (Samstag)",
-    candidate_dates.earlier_candidate_day.strftime("%d.%m.%Y"),
-)
-later_day_column.metric(
-    "Später Kandidatentag (Samstag)",
-    candidate_dates.later_candidate_day.strftime("%d.%m.%Y"),
-)
 
 if daily_weather_data is not None:
     st.subheader("Geladene amtliche Tageswerte")

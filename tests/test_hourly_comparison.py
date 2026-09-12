@@ -77,6 +77,6 @@ def test_hourly_chart_has_two_median_lines_and_two_bands() -> None:
     ]
     assert sum(trace.fill == "tonexty" for trace in chart.data) == 2
     assert tuple(chart.layout.xaxis.range) == (1, 36)
-    assert chart.layout.xaxis.title.text == "Lokale Stunde ab Kandidatentag"
+    assert chart.layout.xaxis.title.text == "Lokale Stunde ab Datum"
     assert chart.layout.yaxis.title.text == "Mittlere Temperatur (°C)"
     assert chart.layout.shapes[0].x0 == 24.5

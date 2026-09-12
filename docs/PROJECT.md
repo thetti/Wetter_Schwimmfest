@@ -37,19 +37,19 @@ nicht aus der Verfügbarkeit in Cham abgeleitet.
 Für jedes Vergleichsjahr gelten folgende Schritte:
 
 1. Bestimme den ersten Montag nach dem 15. August als Schulstart.
-2. Bestimme den unmittelbar vorhergehenden Samstag als späteren Kandidatentag.
-3. Bestimme den Samstag sieben Tage davor als früheren Kandidatentag.
+2. Bestimme den unmittelbar vorhergehenden Samstag als Datum 2.
+3. Bestimme den Samstag sieben Tage davor als Datum 1.
 
 „Nach dem 15. August“ ist strikt zu verstehen: Fällt der 15. August selbst auf
 einen Montag, liegt der Schulstart am darauffolgenden Montag.
 
 Beispiele:
 
-| Vergleichsjahr | Schulstart | Später Kandidatentag | Früher Kandidatentag |
+| Vergleichsjahr | Schulstart | Datum 1 | Datum 2 |
 | --- | --- | --- | --- |
-| 2026 | Montag, 17. August | Samstag, 15. August | Samstag, 8. August |
-| 2027 | Montag, 16. August | Samstag, 14. August | Samstag, 7. August |
-| 2028 | Montag, 21. August | Samstag, 19. August | Samstag, 12. August |
+| 2026 | Montag, 17. August | Samstag, 8. August | Samstag, 15. August |
+| 2027 | Montag, 16. August | Samstag, 7. August | Samstag, 14. August |
+| 2028 | Montag, 21. August | Samstag, 12. August | Samstag, 19. August |
 
 ## Erste Darstellung in der initialen Konfiguration
 
@@ -57,9 +57,9 @@ Das erste Diagramm zeigt einen auswählbaren Tagesindikator über mehrere Jahre:
 
 - x-Achse: Vergleichsjahr
 - y-Achse: Wert des Tagesindikators mit sichtbarer Einheit
-- Linie 1: früher Kandidatentag, durchgehend dunkelblau
-- Linie 2: später Kandidatentag, durchgehend hellblau
-- rechts: ein schmaler Boxplot je Kandidatentag mit denselben Messwerten und
+- Linie 1: Datum 1, durchgehend dunkelblau
+- Linie 2: Datum 2, durchgehend hellblau
+- rechts: ein schmaler Boxplot je Datum mit denselben Messwerten und
   derselben y-Achse
 
 Das Tagesdiagramm bietet an:
@@ -123,8 +123,8 @@ bietet deshalb folgende Messgrössen an:
 - mittlere relative Luftfeuchtigkeit je Stunde
 - Sonnenscheindauer oder Strahlung je Stunde, sofern an der Station verfügbar
 
-Für die 36 fortlaufenden Stunden vom Beginn des Kandidatentags bis 12:00 Uhr
-des Folgetags zeigt es je Kandidatentag den Median über alle verfügbaren Jahre.
+Für die 36 fortlaufenden Stunden vom Beginn des gewählten Datums bis 12:00 Uhr
+des Folgetags zeigt es je Datum den Median über alle verfügbaren Jahre.
 Ein Schatten vom 25. bis zum 75. Perzentil zeigt die typische Bandbreite.
 Amtliche UTC-Zeitstempel werden korrekt in lokale Zeit am Auswertungsort
 umgerechnet, einschliesslich Sommerzeit. Tages- und Stundenwerte bleiben

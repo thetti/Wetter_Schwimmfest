@@ -13,8 +13,8 @@ Verteilung sehen, damit einzelne Ausreisser die beiden Kandidatentage nicht
 ## Sichtbares Ergebnis
 
 Das Stundenprofil reicht bis 12:00 Uhr des Folgetags und verwendet historische
-Medianwerte. Das Tagesdiagramm erhält rechts zwei schmale Boxplots. Früher und
-später Kandidatentag haben in allen Darstellungen dieselben Blautöne.
+Medianwerte. Das Tagesdiagramm erhält rechts zwei schmale Boxplots. Datum 1 und
+Datum 2 haben in allen Darstellungen dieselben Blautöne.
 
 ## Umfang
 
@@ -22,8 +22,8 @@ später Kandidatentag haben in allen Darstellungen dieselben Blautöne.
 - Median statt Mittelwert je Stundenposition berechnen und anzeigen
 - Band zwischen 25. und 75. Perzentil beibehalten
 - Tageslinien und zwei Boxplots in einer gemeinsamen Grafik kombinieren
-- dunkelblaue Farbe für den früheren Kandidatentag verwenden
-- hellblaue Farbe für den späteren Kandidatentag verwenden
+- dunkelblaue Farbe für Datum 1 verwenden
+- hellblaue Farbe für Datum 2 verwenden
 - Beschriftungen und Dokumentation an die neue Statistik anpassen
 
 ## Nicht enthalten
